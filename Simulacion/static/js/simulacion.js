@@ -152,12 +152,16 @@ function crearProceso(){
 		}else{
 			alert('Proceso: ' + campo1 + '\nTamaño: ' + campo2 );
 <<<<<<< HEAD
+<<<<<<< HEAD
 			$('#tabProcesElim').prop('disabled', false);
 			$('#tabProcesListo').prop('disabled', false);
 			$('#tabProcesSus').prop('disabled', false);
 =======
 
 			$('#tabProcesElim').prop('disabled', true);
+=======
+			$('#tabProcesElim').prop('disabled', false);
+>>>>>>> parent of e068f2d... solucion de bug
 			$('#tabProcesListo').prop('disabled', false);
 			$('#tabProcesSus').prop('disabled', false);
 
@@ -225,6 +229,7 @@ function seleccionarPro(id_fila)
 	if($('#'+id_fila).hasClass('seleccionada'))
 		{
 <<<<<<< HEAD
+<<<<<<< HEAD
 		  $('#'+id_fila).removeClass('seleccionada');		  
 =======
 		  $('#'+id_fila).removeClass('seleccionada');
@@ -240,11 +245,15 @@ function seleccionarPro(id_fila)
 
 >>>>>>> cfacaf4ff4e0678fca8a3252451e86ca85985151
 >>>>>>> fedb0a0f860aa429964e3a4e952fb5fd01e69e59
+=======
+		  $('#'+id_fila).removeClass('seleccionada');		  
+>>>>>>> parent of e068f2d... solucion de bug
 		}
 	else 
 	{
 		$('#'+id_fila).addClass('seleccionada');		
 		$('#procesActual').text('Proceso '+ id_fila[numx-1]);
+<<<<<<< HEAD
 <<<<<<< HEAD
 		$('#tabProcesElim').prop('disabled',false);
 =======
@@ -259,16 +268,16 @@ function seleccionarPro(id_fila)
 
 >>>>>>> cfacaf4ff4e0678fca8a3252451e86ca85985151
 >>>>>>> fedb0a0f860aa429964e3a4e952fb5fd01e69e59
+=======
+>>>>>>> parent of e068f2d... solucion de bug
 	}	
     id_fila_selected=id_fila;
 }
 
 function eliminarPro(id_fila)
 {   
-	
-    idPro1 = $('#'+id_fila).eq(0).text();
+    idPro1 = $('#'+id_fila).eq(0).text(); 	
     $('#'+id_fila).remove();
-    $('#tabProcesElim').prop('disabled',true);
     var idFil = id_fila.length;
     var num = parseInt(id_fila[idFil-1])
 	var texto='';
