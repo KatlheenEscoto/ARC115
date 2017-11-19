@@ -12,5 +12,6 @@
 			color: white;
 	}
 	body {
-		background: -moz-linear-gradient(#151515,#A4A4A4 );
+		background: -moz-linear-gradient(#B40404,#0B0B3B ); /*En Mozila*/
+		background: -webkit-linear-gradient(#B40404,#0B0B3B); /*En Chrome*/
 	}
