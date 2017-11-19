@@ -56,13 +56,16 @@ function iniciarInstalacion(){
 			alert('Memoria principal: '+ tamanioDeMemoria + '\nMemoria secundaria: ' + tamanioSecundario + '\nTamaño de Página: ' + tamanioPagina);
 			
 			var numeroDeMarcos = Math.round(tamanioDeMemoria/tamanioPagina);
+			//Dir fisica
 			var tamanioPaginaHexa = tamanioPagina.toString(16);
 			alert(tamanioPaginaHexa+"hexa")
-			var dirFisica=0;
+			var dirFisica='0';
+			var aux=null;
 
 			for(var i=0; i<numeroDeMarcos;i++){
 				agregarTablaMemoriaPrincipal(dirFisica);
-				alert(dirFisica=dirFisica+tamanioPaginaHexa);
+				aux=parseInt(dirFisica,16)+parseInt(tamanioPaginaHexa,16);
+				dirFisica=aux.toString(16);
 			};
 
 			var numeroAlmacenamiento = Math.round(tamanioSecundario/tamanioPagina);
