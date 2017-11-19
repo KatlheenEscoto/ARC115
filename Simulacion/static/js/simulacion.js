@@ -151,6 +151,9 @@ function crearProceso(){
 			return false;
 		}else{
 			alert('Proceso: ' + campo1 + '\nTamaño: ' + campo2 );
+			$('#tabProcesElim').prop('disabled', false);
+			$('#tabProcesListo').prop('disabled', false);
+			$('#tabProcesSus').prop('disabled', false);
 			$('#termSimBtn').prop('disabled', false);
 			agregarProceso();		
 			
@@ -213,18 +216,12 @@ function seleccionarPro(id_fila)
 	var numx = id_fila.length;	
 	if($('#'+id_fila).hasClass('seleccionada'))
 		{
-		  $('#'+id_fila).removeClass('seleccionada');
-		  $('#tabProcesElim').prop('disabled', true);
-		  $('#tabProcesListo').prop('disabled', true);
-		  $('#tabProcesSus').prop('disabled', true);		  
+		  $('#'+id_fila).removeClass('seleccionada');		  
 		}
 	else 
 	{
 		$('#'+id_fila).addClass('seleccionada');		
 		$('#procesActual').text('Proceso '+ id_fila[numx-1]);
-		  $('#tabProcesElim').prop('disabled', false);
-		  $('#tabProcesListo').prop('disabled', false);
-		  $('#tabProcesSus').prop('disabled', false);
 	}	
     id_fila_selected=id_fila;
 }
@@ -279,8 +276,10 @@ $(document).ready(function() {
 		eliminarPro(id_fila_selected);
 		$('#procesActual').text('X');
 			});
-		$('#tabProcesElim').click(function() {
-		eliminarPro(id_fila_selected);
-		$('#procesActual').text('X');
+	$('#tabMemPri').click(function() {
+		eliminarPro(id_fila_selected);		
 			});
+	/*$('tabProcesSus').click(function() {
+		
+	});*/
 });
