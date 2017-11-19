@@ -192,23 +192,24 @@ function agregarProceso(){
 	}else{
 		estado="Activa";
 	}
-	var fila='<tr class="selected" id="fila'+contP+'" onclick="seleccionarPro(this.id,contP);"><td>'+contP+'</td><td>'+nombre+'</td><td>'+tamProc+'</td><td>'+paginas+'</td><td>'+estado+'</td><td>'+cargadasMP+'</td><td>'+cargadasMS+'</td></tr>';
+	var fila='<tr class="selected" id="fila'+contP+'" onclick="seleccionarPro(this.id);"><td>'+contP+'</td><td>'+nombre+'</td><td>'+tamProc+'</td><td>'+paginas+'</td><td>'+estado+'</td><td>'+cargadasMP+'</td><td>'+cargadasMS+'</td></tr>';
 	$('#tabProces').append(fila);
 	reordenarProceso();
 	n++;
 	$('#nomProCrear').val('Proceso '+ n);
 }
 
-function seleccionarPro(id_fila, contP)
+function seleccionarPro(id_fila)
 {
-	if($('#'+id_fila).hasClass('seleccinada'))
+	var numx = id_fila.length;	
+	if($('#'+id_fila).hasClass('seleccionada'))
 		{
-		  $('#'+id_fila).removeClass('seleccionada');
+		  $('#'+id_fila).removeClass('seleccionada');		  
 		}
 	else 
 	{
 		$('#'+id_fila).addClass('seleccionada');		
-		$('#procesActual').text(contP);
+		$('#procesActual').text(id_fila[numx-1]);
 	}	
     id_fila_selected=id_fila;
 }
@@ -253,5 +254,6 @@ $(document).ready(function() {
 	$('#opcSimul').css('height',altura);
 	$('#tabProcesElim').click(function() {
 		eliminarPro(id_fila_selected);
+		$('#procesActual').text('X');
 			});
 });
