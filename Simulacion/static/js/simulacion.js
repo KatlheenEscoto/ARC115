@@ -276,10 +276,4 @@ $(document).ready(function() {
 		eliminarPro(id_fila_selected);
 		$('#procesActual').text('X');
 			});
-	$('#tabMemPri').click(function() {
-		eliminarPro(id_fila_selected);		
-			});
-	/*$('tabProcesSus').click(function() {
-		
-	});*/
 });
