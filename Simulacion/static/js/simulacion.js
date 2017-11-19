@@ -235,7 +235,7 @@ function eliminarPro(id_fila)
 	var texto='';
 	if(parseInt(idPro1) == num)
 	{	//Funcion para eliminar de la MemPrin los procesos
-	$('#tabMemPri tbody tr').eq(parseInt(idPro1)).each(function() {   
+	$('#tabMemPri tbody tr').eq(parseInt(idPro1)-1).each(function() {   
 		$(this).find('td').eq(2).text(null);
 		$(this).find('td').eq(3).text(null);
 		$(this).find('td').eq(4).text(null);
