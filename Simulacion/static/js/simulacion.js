@@ -45,7 +45,6 @@ function iniciarInstalacion(){
 			var numeroDeMarcos = Math.round(tamanioDeMemoria/tamanioPagina);
 			//Dir fisica
 			var tamanioPaginaHexa = tamanioPagina.toString(16);
-			alert(tamanioPaginaHexa+"hexa")
 			var dirFisica='0';
 			var aux=null;
 
@@ -103,6 +102,23 @@ function reordenarTablaMemoriaSec(){
 		});
 }
 
+function agregarProcesoMemP(numPag,nomPro,idPro){
+
+		var cargadas=0;
+		var texto='';
+
+		$('#tabMemPri tbody tr').each(function(){
+				texto=$(this).find('td').eq(2).text();
+				if(texto === '' && numPag>cargadas ){
+					$(this).find('td').eq(2).text(idPro);
+					$(this).find('td').eq(3).text(nomPro);
+					$(this).find('td').eq(4).text(cargadas);
+					cargadas++;
+				}
+		});
+	return cargadas;
+}
+
 
 
 /* Crear Proceso */
@@ -137,11 +153,23 @@ function agregarProceso(){
 	$('#nomProCrear').val('Proceso '+n);
 	var nombre = $('#nomProCrear').val();
 	var tamProc = $('#tamProCrear').val();
-	var paginas = cantidadPaginas(tamProc);	
-	var fila='<tr class="selected" id="fila'+contP+'" onclick="seleccionar(this.id);"><td>'+contP+'</td><td>'+nombre+'</td><td>'+tamProc+'</td><td>'+paginas+'</td></td><td></td><td></td><td></td></tr>';
+	var paginas = cantidadPaginas(tamProc);
+	var	cargadasMP = agregarProcesoMemP(paginas,nombre,contP);
+	var cargadasMS = paginas - cargadasMP;
+	var estado='';
+	if(cargadasMP==0){
+		estado="Espera";
+	}else{
+		estado="Activa";
+	}
+	var fila='<tr class="selected" id="fila'+contP+'" onclick="seleccionar(this.id);"><td>'+contP+'</td><td>'+nombre+'</td><td>'+tamProc+'</td><td>'+paginas+'</td><td>'+estado+'</td><td>'+cargadasMP+'</td><td>'+cargadasMS+'</td></tr>';
 	$('#tabProces').append(fila);
 	reordenarProceso();
+<<<<<<< HEAD
 	n++;
+=======
+
+>>>>>>> 521da27efdd58ca1bb4889d9276da96b6622221b
 }
 
 function reordenarProceso(){
@@ -171,3 +199,10 @@ function asignarEstadisticos(cantMem,memDis,memUsa,marPag,tamPag,tamMemSec,memSe
 	$('#estTamMemSec').text("Tamaño de Mem.Secundaria: "+tamMemSec);
 	$('#estMemSecDis').text("Mem. Secundaria disponible: "+memSecDis);
 }
+
+$(document).ready(function() {
+	var altura = $('#panelProces').height();
+	$('#iniciarPanel').css('height',altura);
+	$('#panelEst').css('height',altura);
+	$('#opcSimul').css('height',altura);
+});
