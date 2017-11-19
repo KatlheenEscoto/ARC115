@@ -134,8 +134,7 @@ function agregarProceso(){
 	contP++;
 	var nombre = $('#nomProCrear').val();
 	var tamProc = $('#tamProCrear').val();
-	var paginas = cantidadPaginas(tamProc);
-	alert('paginas '+paginas);	
+	var paginas = cantidadPaginas(tamProc);	
 	var fila='<tr class="selected" id="fila'+contP+'" onclick="seleccionar(this.id);"><td>'+contP+'</td><td>'+nombre+'</td><td>'+tamProc+'</td><td>'+paginas+'</td></td><td></td><td></td><td></td></tr>';
 	$('#tabProces').append(fila);
 	reordenarProceso();
