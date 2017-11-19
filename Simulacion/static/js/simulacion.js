@@ -151,12 +151,11 @@ function crearProceso(){
 			return false;
 		}else{
 			alert('Proceso: ' + campo1 + '\nTamaño: ' + campo2 );
-<<<<<<< HEAD
+
 			$('#tabProcesElim').prop('disabled', true);
 			$('#tabProcesListo').prop('disabled', false);
 			$('#tabProcesSus').prop('disabled', false);
-=======
->>>>>>> 4fe4b80a6f8fe3415ce2cc49f51f500c4de27ed0
+
 			$('#termSimBtn').prop('disabled', false);
 			agregarProceso();		
 			
