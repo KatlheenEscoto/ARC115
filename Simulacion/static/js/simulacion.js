@@ -157,7 +157,7 @@ function cantidadPaginas(tamProc)
 		{
 			return (Math.ceil(tamaño1/tamañoPagina1)+1);
 		}*/
-	return parseInt(tamProc / tamañoPag); 
+	return Math.round(tamProc / tamañoPag); 
 }
 
 function asignarEstadisticos(cantMem,memDis,memUsa,marPag,tamPag,tamMemSec,memSecDis){
