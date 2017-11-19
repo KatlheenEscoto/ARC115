@@ -151,9 +151,29 @@ function crearProceso(){
 			return false;
 		}else{
 			alert('Proceso: ' + campo1 + '\nTamaño: ' + campo2 );
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
 			$('#tabProcesElim').prop('disabled', false);
 			$('#tabProcesListo').prop('disabled', false);
 			$('#tabProcesSus').prop('disabled', false);
+=======
+
+			$('#tabProcesElim').prop('disabled', true);
+			$('#tabProcesListo').prop('disabled', false);
+			$('#tabProcesSus').prop('disabled', false);
+
+>>>>>>> cfacaf4ff4e0678fca8a3252451e86ca85985151
+=======
+			$('#tabProcesElim').prop('disabled', false);
+			$('#tabProcesListo').prop('disabled', false);
+			$('#tabProcesSus').prop('disabled', false);
+>>>>>>> parent of 4fe4b80... habilitar desabilitar botones
+=======
+			$('#tabProcesElim').prop('disabled', false);
+			$('#tabProcesListo').prop('disabled', false);
+			$('#tabProcesSus').prop('disabled', false);
+>>>>>>> parent of 4fe4b80... habilitar desabilitar botones
 			$('#termSimBtn').prop('disabled', false);
 			agregarProceso();		
 			
@@ -182,9 +202,7 @@ function agregarProceso(){
 			if (incapAlmacenaje>0) {
 				alert("El proceso tiene demasiado tamaño para ser ejecutado.");
 			};			
-		}
-
-		
+		}	
 	}
 	if(cargadasMP==0){
 		estado="Espera";
@@ -193,9 +211,24 @@ function agregarProceso(){
 	}
 	var fila='<tr class="selected" id="fila'+contP+'" onclick="seleccionarPro(this.id);"><td>'+contP+'</td><td>'+nombre+'</td><td>'+tamProc+'</td><td>'+paginas+'</td><td>'+estado+'</td><td>'+cargadasMP+'</td><td>'+cargadasMS+'</td></tr>';
 	$('#tabProces').append(fila);
+	//Actulizar estadisticos
+	actualizarEstadisticos(parseInt(tamProc),paginas,cargadasMP,cargadasMS);
+
 	reordenarProceso();
 	n++;
 	$('#nomProCrear').val('Proceso '+ n);
+}
+
+function actualizarEstadisticos(tamProc,pagProc,cargadasMP,cargadasMS){
+	var capMemP =parseInt($('#estCantMem').text());
+	var cantMemPDis=parseInt($('#estMemDis').text());
+	var cantMemPUsa=parseInt($('#estMemUsa').text());
+	var marcosMP = parseInt($('#estMarPag').text());
+	var tamPag = parseInt($('#estTamPag').text());
+	var capMemS = parseInt($('#estTamMemSec').text());
+	var cantMemSDis =parseInt( $('#estMemSecDis').text());
+
+	asignarEstadisticos(capMemP,(cantMemPDis-(cargadasMP*tamPag)),(cantMemPUsa+(cargadasMP*tamPag)),marcosMP,tamPag,capMemS,(cantMemSDis-(cargadasMS*tamPag)));
 }
 
 function seleccionarPro(id_fila)
@@ -203,26 +236,85 @@ function seleccionarPro(id_fila)
 	var numx = id_fila.length;	
 	if($('#'+id_fila).hasClass('seleccionada'))
 		{
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
 		  $('#'+id_fila).removeClass('seleccionada');		  
+=======
+		  $('#'+id_fila).removeClass('seleccionada');
+<<<<<<< HEAD
+<<<<<<< HEAD
+		  $('#tabProcesElim').prop('disabled',true);  
+=======
+
+=======
+>>>>>>> parent of fc4f741... xd
+		  $('#tabProcesElim').prop('disabled',true);		  
+=======
+		  $('#tabProcesElim').prop('disabled', true);
+		  $('#tabProcesListo').prop('disabled', true);
+		  $('#tabProcesSus').prop('disabled', true);		  
+<<<<<<< HEAD
+
+>>>>>>> cfacaf4ff4e0678fca8a3252451e86ca85985151
+>>>>>>> fedb0a0f860aa429964e3a4e952fb5fd01e69e59
+=======
+>>>>>>> 4fe4b80a6f8fe3415ce2cc49f51f500c4de27ed0
+>>>>>>> parent of fc4f741... xd
+=======
+		  $('#'+id_fila).removeClass('seleccionada');		  
+>>>>>>> parent of 4fe4b80... habilitar desabilitar botones
+=======
+		  $('#'+id_fila).removeClass('seleccionada');		  
+>>>>>>> parent of 4fe4b80... habilitar desabilitar botones
 		}
 	else 
 	{
 		$('#'+id_fila).addClass('seleccionada');		
 		$('#procesActual').text('Proceso '+ id_fila[numx-1]);
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+		$('#tabProcesElim').prop('disabled',false);
+=======
+<<<<<<< HEAD
+=======
+
+=======
+>>>>>>> parent of fc4f741... xd
+		$('#tabProcesElim').prop('disabled',false);
+=======
+		  $('#tabProcesElim').prop('disabled', false);
+		  $('#tabProcesListo').prop('disabled', false);
+		  $('#tabProcesSus').prop('disabled', false);
+<<<<<<< HEAD
+
+>>>>>>> cfacaf4ff4e0678fca8a3252451e86ca85985151
+>>>>>>> fedb0a0f860aa429964e3a4e952fb5fd01e69e59
+=======
+>>>>>>> 4fe4b80a6f8fe3415ce2cc49f51f500c4de27ed0
+>>>>>>> parent of fc4f741... xd
+=======
+>>>>>>> parent of 4fe4b80... habilitar desabilitar botones
+=======
+>>>>>>> parent of 4fe4b80... habilitar desabilitar botones
 	}	
     id_fila_selected=id_fila;
 }
 
 function eliminarPro(id_fila)
 {   
-    idPro1 = $('#'+id_fila).eq(0).text(); 	
+	
+    idPro1 = $('#'+id_fila).eq(0).text();
     $('#'+id_fila).remove();
+    $('#tabProcesElim').prop('disabled',true);
     var idFil = id_fila.length;
     var num = parseInt(id_fila[idFil-1])
 	var texto='';
 	if(parseInt(idPro1) == num)
 	{	//Funcion para eliminar de la MemPrin los procesos
-	$('#tabMemPri tbody tr').eq(parseInt(idPro1)).each(function() {   
+	$('#tabMemPri tbody tr').eq(parseInt(idPro1)-1).each(function() {   
 		$(this).find('td').eq(2).text(null);
 		$(this).find('td').eq(3).text(null);
 		$(this).find('td').eq(4).text(null);
@@ -262,11 +354,21 @@ $(document).ready(function() {
 	$('#tabProcesElim').click(function() {
 		eliminarPro(id_fila_selected);
 		$('#procesActual').text('X');
+<<<<<<< HEAD
+			});		
+=======
 			});
+<<<<<<< HEAD
+<<<<<<< HEAD
 	$('#tabMemPri').click(function() {
 		eliminarPro(id_fila_selected);		
 			});
 	/*$('tabProcesSus').click(function() {
 		
 	});*/
+>>>>>>> fedb0a0f860aa429964e3a4e952fb5fd01e69e59
+=======
+>>>>>>> parent of 4fe4b80... habilitar desabilitar botones
+=======
+>>>>>>> parent of 4fe4b80... habilitar desabilitar botones
 });
