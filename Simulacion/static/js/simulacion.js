@@ -15,22 +15,9 @@ var id_fila_selected=[];
 /* Iniciar Simulación */
 
 function iniciarSimulacion(){
-	$('#iniciar').prop('disabled', false);
+	$('#iniciar').prop('disabled',false);
 }
 
-/*$(document).ready(function(){
-		$('#bt_add').click(function(){
-			agregar();
-		});
-		$('#bt_del').click(function(){
-			eliminar(id_fila_selected);
-		});
-		$('#bt_delall').click(function(){
-			eliminarTodasFilas();
-		});
-		
-
-});*/
 
 function iniciarInstalacion(){
 	var campo1 = $('#tamMemP').val();
@@ -147,8 +134,9 @@ function agregarProceso(){
 	contP++;
 	var nombre = $('#nomProCrear').val();
 	var tamProc = $('#tamProCrear').val();
-	//var pagina = cantidadPaginas();	
-	var fila='<tr class="selected" id="fila'+contP+'" onclick="seleccionar(this.id);"><td>'+contP+'</td><td>'+nombre+'</td><td>'+tamProc+'</td><td></td></td><td></td><td></td><td></td></tr>';
+	var paginas = cantidadPaginas(tamProc);
+	alert('paginas '+paginas);	
+	var fila='<tr class="selected" id="fila'+contP+'" onclick="seleccionar(this.id);"><td>'+contP+'</td><td>'+nombre+'</td><td>'+tamProc+'</td><td>'+paginas+'</td></td><td></td><td></td><td></td></tr>';
 	$('#tabProces').append(fila);
 	reordenarProceso();
 }
@@ -159,16 +147,14 @@ function reordenarProceso(){
 			$(this).find('td').eq(0).text(num);
 		num++;
 	});
+}
 
-/*
-function cantidadPaginas()
+function cantidadPaginas(tamProc)
 {
-	var tamaño1 = parseInt($('#tamMemP').val()); 
-	var tamañoPagina1 = parseInt($('#tamProCrear').val());
-	if(tamaño1 % tamañoPagina1 != 0)
+	var tamañoPag = parseInt($('#tamPag').val()); 
+	/*if(tamaño1 % tamañoPagina1 != 0)
 		{
 			return (Math.ceil(tamaño1/tamañoPagina1)+1);
-		}
-	return tamaño1 / tamañoPagina1; 
-}*/
+		}*/
+	return parseInt(tamProc / tamañoPag); 
 }
