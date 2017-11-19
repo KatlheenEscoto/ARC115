@@ -56,9 +56,13 @@ function iniciarInstalacion(){
 			alert('Memoria principal: '+ tamanioDeMemoria + '\nMemoria secundaria: ' + tamanioSecundario + '\nTamaño de Página: ' + tamanioPagina);
 			
 			var numeroDeMarcos = Math.round(tamanioDeMemoria/tamanioPagina);
+			var tamanioPaginaHexa = parseInt(tamanioPagina.toString(),16);
+			alert(tamanioPaginaHexa+"hexa")
+			var dirFisica=0;
 
 			for(var i=0; i<numeroDeMarcos;i++){
-				agregarTablaMemoriaPrincipal();
+				agregarTablaMemoriaPrincipal(dirFisica);
+				alert(dirFisica=dirFisica+tamanioPaginaHexa);
 			};
 
 			var numeroAlmacenamiento = Math.round(tamanioSecundario/tamanioPagina);
@@ -76,9 +80,9 @@ function iniciarInstalacion(){
 }
 
 /* Tabla memoria principal */
-function agregarTablaMemoriaPrincipal(){
+function agregarTablaMemoriaPrincipal(dirFisica){
 		contPP++;
-		var fila='<tr class="selected" id="fila'+contPP+'" onclick="seleccionar(this.id);"><td></td><td>'+contPP+'</td><td></td><td></td><td></td></tr>';
+		var fila='<tr class="selected" id="fila'+contPP+'" onclick="seleccionar(this.id);"><td>0x'+dirFisica+'</td><td>'+contPP+'</td><td></td><td></td><td></td></tr>';
 		$('#tabMemPri').append(fila);
 		reordenarTablaMemoriaPrincipal();
 }
