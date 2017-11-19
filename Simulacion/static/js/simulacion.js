@@ -219,25 +219,13 @@ function seleccionarPro(id_fila)
 	if($('#'+id_fila).hasClass('seleccionada'))
 		{
 		  $('#'+id_fila).removeClass('seleccionada');
-
-		  $('#tabProcesElim').prop('disabled',true);		  
-
-		  $('#tabProcesElim').prop('disabled', true);
-		  $('#tabProcesListo').prop('disabled', true);
-		  $('#tabProcesSus').prop('disabled', true);		  
-
+		  $('#tabProcesElim').prop('disabled',true);  
 		}
 	else 
 	{
 		$('#'+id_fila).addClass('seleccionada');		
 		$('#procesActual').text('Proceso '+ id_fila[numx-1]);
-
 		$('#tabProcesElim').prop('disabled',false);
-
-		  $('#tabProcesElim').prop('disabled', false);
-		  $('#tabProcesListo').prop('disabled', false);
-		  $('#tabProcesSus').prop('disabled', false);
-
 	}	
     id_fila_selected=id_fila;
 }
@@ -293,9 +281,5 @@ $(document).ready(function() {
 	$('#tabProcesElim').click(function() {
 		eliminarPro(id_fila_selected);
 		$('#procesActual').text('X');
-			});
-		$('#tabProcesElim').click(function() {
-		eliminarPro(id_fila_selected);
-		$('#procesActual').text('X');
-			});
+			});		
 });
