@@ -229,36 +229,50 @@ function seleccionarPro(id_fila)
 =======
 		  $('#'+id_fila).removeClass('seleccionada');
 <<<<<<< HEAD
+<<<<<<< HEAD
 		  $('#tabProcesElim').prop('disabled',true);  
 =======
 
+=======
+>>>>>>> parent of fc4f741... xd
 		  $('#tabProcesElim').prop('disabled',true);		  
-
+=======
 		  $('#tabProcesElim').prop('disabled', true);
 		  $('#tabProcesListo').prop('disabled', true);
 		  $('#tabProcesSus').prop('disabled', true);		  
+<<<<<<< HEAD
 
 >>>>>>> cfacaf4ff4e0678fca8a3252451e86ca85985151
 >>>>>>> fedb0a0f860aa429964e3a4e952fb5fd01e69e59
+=======
+>>>>>>> 4fe4b80a6f8fe3415ce2cc49f51f500c4de27ed0
+>>>>>>> parent of fc4f741... xd
 		}
 	else 
 	{
 		$('#'+id_fila).addClass('seleccionada');		
 		$('#procesActual').text('Proceso '+ id_fila[numx-1]);
 <<<<<<< HEAD
+<<<<<<< HEAD
 		$('#tabProcesElim').prop('disabled',false);
 =======
 <<<<<<< HEAD
 =======
 
+=======
+>>>>>>> parent of fc4f741... xd
 		$('#tabProcesElim').prop('disabled',false);
-
+=======
 		  $('#tabProcesElim').prop('disabled', false);
 		  $('#tabProcesListo').prop('disabled', false);
 		  $('#tabProcesSus').prop('disabled', false);
+<<<<<<< HEAD
 
 >>>>>>> cfacaf4ff4e0678fca8a3252451e86ca85985151
 >>>>>>> fedb0a0f860aa429964e3a4e952fb5fd01e69e59
+=======
+>>>>>>> 4fe4b80a6f8fe3415ce2cc49f51f500c4de27ed0
+>>>>>>> parent of fc4f741... xd
 	}	
     id_fila_selected=id_fila;
 }
