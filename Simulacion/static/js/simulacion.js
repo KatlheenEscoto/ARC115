@@ -234,7 +234,7 @@ function cantidadPaginas(tamProc)
 		{
 			return (Math.ceil(tamaño1/tamañoPagina1)+1);
 		}*/
-	return Math.round(tamProc / tamañoPag); 
+	return Math.ceil(tamProc / tamañoPag); 
 }
 
 function asignarEstadisticos(cantMem,memDis,memUsa,marPag,tamPag,tamMemSec,memSecDis){
@@ -256,4 +256,7 @@ $(document).ready(function() {
 		eliminarPro(id_fila_selected);
 		$('#procesActual').text('X');
 			});
+	/*$('tabProcesSus').click(function() {
+		
+	});*/
 });
