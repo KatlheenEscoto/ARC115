@@ -150,7 +150,6 @@ function crearProceso(){
 var n=0;
 function agregarProceso(){
 	contP++;	
-	$('#nomProCrear').val('Proceso '+n);
 	var nombre = $('#nomProCrear').val();
 	var tamProc = $('#tamProCrear').val();
 	var paginas = cantidadPaginas(tamProc);
@@ -165,11 +164,8 @@ function agregarProceso(){
 	var fila='<tr class="selected" id="fila'+contP+'" onclick="seleccionar(this.id);"><td>'+contP+'</td><td>'+nombre+'</td><td>'+tamProc+'</td><td>'+paginas+'</td><td>'+estado+'</td><td>'+cargadasMP+'</td><td>'+cargadasMS+'</td></tr>';
 	$('#tabProces').append(fila);
 	reordenarProceso();
-<<<<<<< HEAD
 	n++;
-=======
-
->>>>>>> 521da27efdd58ca1bb4889d9276da96b6622221b
+	$('#nomProCrear').val('Proceso '+ n);
 }
 
 function reordenarProceso(){
