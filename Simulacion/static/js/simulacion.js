@@ -151,9 +151,17 @@ function crearProceso(){
 			return false;
 		}else{
 			alert('Proceso: ' + campo1 + '\nTamaño: ' + campo2 );
+<<<<<<< HEAD
 			$('#tabProcesElim').prop('disabled', false);
 			$('#tabProcesListo').prop('disabled', false);
 			$('#tabProcesSus').prop('disabled', false);
+=======
+
+			$('#tabProcesElim').prop('disabled', true);
+			$('#tabProcesListo').prop('disabled', false);
+			$('#tabProcesSus').prop('disabled', false);
+
+>>>>>>> cfacaf4ff4e0678fca8a3252451e86ca85985151
 			$('#termSimBtn').prop('disabled', false);
 			agregarProceso();		
 			
@@ -216,20 +224,43 @@ function seleccionarPro(id_fila)
 	var numx = id_fila.length;	
 	if($('#'+id_fila).hasClass('seleccionada'))
 		{
+<<<<<<< HEAD
 		  $('#'+id_fila).removeClass('seleccionada');		  
+=======
+		  $('#'+id_fila).removeClass('seleccionada');
+
+		  $('#tabProcesElim').prop('disabled',true);		  
+
+		  $('#tabProcesElim').prop('disabled', true);
+		  $('#tabProcesListo').prop('disabled', true);
+		  $('#tabProcesSus').prop('disabled', true);		  
+
+>>>>>>> cfacaf4ff4e0678fca8a3252451e86ca85985151
 		}
 	else 
 	{
 		$('#'+id_fila).addClass('seleccionada');		
 		$('#procesActual').text('Proceso '+ id_fila[numx-1]);
+<<<<<<< HEAD
+=======
+
+		$('#tabProcesElim').prop('disabled',false);
+
+		  $('#tabProcesElim').prop('disabled', false);
+		  $('#tabProcesListo').prop('disabled', false);
+		  $('#tabProcesSus').prop('disabled', false);
+
+>>>>>>> cfacaf4ff4e0678fca8a3252451e86ca85985151
 	}	
     id_fila_selected=id_fila;
 }
 
 function eliminarPro(id_fila)
 {   
-    idPro1 = $('#'+id_fila).eq(0).text(); 	
+	
+    idPro1 = $('#'+id_fila).eq(0).text();
     $('#'+id_fila).remove();
+    $('#tabProcesElim').prop('disabled',true);
     var idFil = id_fila.length;
     var num = parseInt(id_fila[idFil-1])
 	var texto='';
