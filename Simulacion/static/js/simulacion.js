@@ -192,22 +192,23 @@ function agregarProceso(){
 	}else{
 		estado="Activa";
 	}
-	var fila='<tr class="selected" id="fila'+contP+'" onclick="seleccionarPro(this.id);"><td>'+contP+'</td><td>'+nombre+'</td><td>'+tamProc+'</td><td>'+paginas+'</td><td>'+estado+'</td><td>'+cargadasMP+'</td><td>'+cargadasMS+'</td></tr>';
+	var fila='<tr class="selected" id="fila'+contP+'" onclick="seleccionarPro(this.id,contP);"><td>'+contP+'</td><td>'+nombre+'</td><td>'+tamProc+'</td><td>'+paginas+'</td><td>'+estado+'</td><td>'+cargadasMP+'</td><td>'+cargadasMS+'</td></tr>';
 	$('#tabProces').append(fila);
 	reordenarProceso();
 	n++;
 	$('#nomProCrear').val('Proceso '+ n);
 }
 
-function seleccionarPro(id_fila)
+function seleccionarPro(id_fila, contP)
 {
-	if($('#'+id_fila).hasClass('className'))
+	if($('#'+id_fila).hasClass('seleccinada'))
 		{
 		  $('#'+id_fila).removeClass('seleccionada');
 		}
 	else 
 	{
-		$('#'+id_fila).addClass('seleccionada');
+		$('#'+id_fila).addClass('seleccionada');		
+		$('#procesActual').text(contP);
 	}	
     id_fila_selected=id_fila;
 }
