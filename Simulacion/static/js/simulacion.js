@@ -60,6 +60,8 @@ function iniciarInstalacion(){
 			for(var j=0; j<numeroAlmacenamiento ;j++){
 				agregarTablaMemoriaSec();
 			};		
+			//Estadisticos
+			asignarEstadisticos(tamanioDeMemoria,tamanioDeMemoria,0,numeroDeMarcos,tamanioPagina,tamanioSecundario,tamanioSecundario);
 
 			$('#nuevoProcesoBtn').prop('disabled', false);
 			$('#iniciar').prop('disabled', true);
@@ -156,4 +158,14 @@ function cantidadPaginas(tamProc)
 			return (Math.ceil(tamaño1/tamañoPagina1)+1);
 		}*/
 	return parseInt(tamProc / tamañoPag); 
+}
+
+function asignarEstadisticos(cantMem,memDis,memUsa,marPag,tamPag,tamMemSec,memSecDis){
+	$('#estCantMem').text("Cantidad de memoria: "+cantMem);
+	$('#estMemDis').text("Memoria disponible: "+memDis);
+	$('#estMemUsa').text("Memoria usada: "+memUsa);
+	$('#estMarPag').text("Marcos de página: "+marPag);
+	$('#estTamPag').text("Tamaño de página: "+tamPag);
+	$('#estTamMemSec').text("Tamaño de Mem.Secundaria: "+tamMemSec);
+	$('#estMemSecDis').text("Mem. Secundaria disponible: "+memSecDis);
 }
