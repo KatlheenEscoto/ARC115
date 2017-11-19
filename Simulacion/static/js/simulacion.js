@@ -82,7 +82,7 @@ function agregarTablaMemoriaPrincipal(dirFisica){
 function reordenarTablaMemoriaPrincipal(){
 		var num=1;
 		$('#tabMemPri tbody tr').each(function(){
-			$(this).find('td').eq(1).text(num);
+			$(this).find('td').eq(1).text(num);			
 			num++;
 		});
 }
@@ -110,7 +110,7 @@ function crearProceso(){
 	var campo1 = $('#nomProCrear').val();
 	var campo2 = $('#tamProCrear').val();
 	var campo = $('#tamMemS').val();
-
+    
 	if(campo1 === '' || campo2 === ''){
 		alert('Campos vacíos.');
 		return false;
@@ -126,26 +126,28 @@ function crearProceso(){
 			$('#tabProcesListo').prop('disabled', false);
 			$('#tabProcesSus').prop('disabled', false);
 			$('#termSimBtn').prop('disabled', false);
-
-			agregarProceso();
+			agregarProceso();		
+			
 		}
 	}
 }
-
+var n=0;
 function agregarProceso(){
-	contP++;
+	contP++;	
+	$('#nomProCrear').val('Proceso '+n);
 	var nombre = $('#nomProCrear').val();
 	var tamProc = $('#tamProCrear').val();
 	var paginas = cantidadPaginas(tamProc);	
 	var fila='<tr class="selected" id="fila'+contP+'" onclick="seleccionar(this.id);"><td>'+contP+'</td><td>'+nombre+'</td><td>'+tamProc+'</td><td>'+paginas+'</td></td><td></td><td></td><td></td></tr>';
 	$('#tabProces').append(fila);
 	reordenarProceso();
+	n++;
 }
 
 function reordenarProceso(){
 	var num=1;
 		$('#tabla tbody tr').each(function(){
-			$(this).find('td').eq(0).text(num);
+			$(this).find('td').eq(0).text(num);			
 		num++;
 	});
 }
