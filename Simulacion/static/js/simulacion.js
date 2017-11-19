@@ -103,7 +103,6 @@ function reordenarTablaMemoriaSec(){
 }
 
 function agregarProcesoMemP(numPag,nomPro,idPro){
-
 		var cargadas=0;
 		var texto='';
 
@@ -215,8 +214,20 @@ function seleccionarPro(id_fila)
 }
 
 function eliminarPro(id_fila)
-{
-	$('#'+id_fila).remove();
+{   
+    idPro1 = $('#'+id_fila).eq(0).text(); 	
+    $('#'+id_fila).remove();
+    var idFil = id_fila.length;
+    var num = parseInt(id_fila[idFil-1])
+	var texto='';
+	if(parseInt(idPro1) == num)
+	{	//Funcion para eliminar de la MemPrin los procesos
+	$('#tabMemPri tbody tr').eq(parseInt(idPro1)).each(function() {   
+		$(this).find('td').eq(2).text(null);
+		$(this).find('td').eq(3).text(null);
+		$(this).find('td').eq(4).text(null);
+	});;
+    }
 }
 
 function reordenarProceso(){
@@ -230,10 +241,6 @@ function reordenarProceso(){
 function cantidadPaginas(tamProc)
 {
 	var tamañoPag = parseInt($('#tamPag').val()); 
-	/*if(tamaño1 % tamañoPagina1 != 0)
-		{
-			return (Math.ceil(tamaño1/tamañoPagina1)+1);
-		}*/
 	return Math.ceil(tamProc / tamañoPag); 
 }
 
@@ -255,6 +262,9 @@ $(document).ready(function() {
 	$('#tabProcesElim').click(function() {
 		eliminarPro(id_fila_selected);
 		$('#procesActual').text('X');
+			});
+	$('#tabMemPri').click(function() {
+		eliminarPro(id_fila_selected);		
 			});
 	/*$('tabProcesSus').click(function() {
 		
