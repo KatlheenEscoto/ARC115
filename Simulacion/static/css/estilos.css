@@ -14,16 +14,14 @@
 
 	body {
 		/*background: -moz-linear-gradient(#B40404,#0B0B3B ); /*En Mozila*/
-         background: -moz-radial-gradient(left bottom, circle farthest-side, #084B8A 0%, #A4A4A4 100%);
 		/*background: -webkit-linear-gradient(#B40404,#0B0B3B); /*En Chrome*/
-        background: -webkit-radial-gradient(left bottom, circle farthest-side, #084B8A 0%, #A4A4A4 100%);
-		/*background: url('../imagenes/fondo2.jpg');
+		background: url('../imagenes/fondo2.jpg');
 		background-repeat: no-repeat;
         background-attachment: fixed;
         background-size: cover;
         height: 100%;
         font-family: 'Tw Cen MT';
-        font-size: 17px;*/
+        font-size: 17px;
 	}
 
     footer{
