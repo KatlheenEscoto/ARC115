@@ -119,6 +119,20 @@ function agregarProcesoMemP(numPag,nomPro,idPro){
 	return cargadas;
 }
 
+function agregarProcesoMemS(corPag,nomPro,idPro,numPag){
+		var texto='';
+
+		$('#tabMemSec tbody tr').each(function(){
+				texto=$(this).find('td').eq(1).text();
+				if(texto === '' && numPag>corPag ){
+					$(this).find('td').eq(1).text(idPro);
+					$(this).find('td').eq(2).text(nomPro);
+					$(this).find('td').eq(3).text(corPag);
+					corPag++;
+				}
+		});
+	return (numPag-corPag);
+}
 
 
 /* Crear Proceso */
@@ -156,6 +170,23 @@ function agregarProceso(){
 	var	cargadasMP = agregarProcesoMemP(paginas,nombre,contP);
 	var cargadasMS = paginas - cargadasMP;
 	var estado='';
+	var incapAlmacenaje=0;
+	if (cargadasMS>0){
+		if (cargadasMP==0) {
+			incapAlmacenaje = agregarProcesoMemS(cargadasMP,nombre,contP,paginas);
+			if (incapAlmacenaje>0) {
+				alert("El proceso tiene demasiado tamaño para ser ejecutado.");
+
+			};
+		}else {
+			incapAlmacenaje = agregarProcesoMemS((cargadasMP),nombre,contP,paginas);
+			if (incapAlmacenaje>0) {
+				alert("El proceso tiene demasiado tamaño para ser ejecutado.");
+			};			
+		}
+
+		
+	}
 	if(cargadasMP==0){
 		estado="Espera";
 	}else{
@@ -186,13 +217,13 @@ function cantidadPaginas(tamProc)
 }
 
 function asignarEstadisticos(cantMem,memDis,memUsa,marPag,tamPag,tamMemSec,memSecDis){
-	$('#estCantMem').text("Cantidad de memoria: "+cantMem);
-	$('#estMemDis').text("Memoria disponible: "+memDis);
-	$('#estMemUsa').text("Memoria usada: "+memUsa);
-	$('#estMarPag').text("Marcos de página: "+marPag);
-	$('#estTamPag').text("Tamaño de página: "+tamPag);
-	$('#estTamMemSec').text("Tamaño de Mem.Secundaria: "+tamMemSec);
-	$('#estMemSecDis').text("Mem. Secundaria disponible: "+memSecDis);
+	$('#estCantMem').text(cantMem);
+	$('#estMemDis').text(memDis);
+	$('#estMemUsa').text(memUsa);
+	$('#estMarPag').text(marPag);
+	$('#estTamPag').text(tamPag);
+	$('#estTamMemSec').text(tamMemSec);
+	$('#estMemSecDis').text(memSecDis);
 }
 
 $(document).ready(function() {

@@ -3,11 +3,14 @@
 	}
 
 	.selected:hover{
-			background-color: #0585C0;
+			background-color: #A9A9F5;
 			color: white;
 	}
 
 	.seleccionada{
 			background-color: #0585C0;
 			color: white;
+	}
+	body {
+		background: -moz-linear-gradient(#151515,#A4A4A4 );
 	}
