@@ -151,11 +151,17 @@ function crearProceso(){
 			return false;
 		}else{
 			alert('Proceso: ' + campo1 + '\nTamaño: ' + campo2 );
+<<<<<<< HEAD
+			$('#tabProcesElim').prop('disabled', false);
+			$('#tabProcesListo').prop('disabled', false);
+			$('#tabProcesSus').prop('disabled', false);
+=======
 
 			$('#tabProcesElim').prop('disabled', true);
 			$('#tabProcesListo').prop('disabled', false);
 			$('#tabProcesSus').prop('disabled', false);
 
+>>>>>>> cfacaf4ff4e0678fca8a3252451e86ca85985151
 			$('#termSimBtn').prop('disabled', false);
 			agregarProceso();		
 			
@@ -218,14 +224,41 @@ function seleccionarPro(id_fila)
 	var numx = id_fila.length;	
 	if($('#'+id_fila).hasClass('seleccionada'))
 		{
+<<<<<<< HEAD
+		  $('#'+id_fila).removeClass('seleccionada');		  
+=======
 		  $('#'+id_fila).removeClass('seleccionada');
+<<<<<<< HEAD
 		  $('#tabProcesElim').prop('disabled',true);  
+=======
+
+		  $('#tabProcesElim').prop('disabled',true);		  
+
+		  $('#tabProcesElim').prop('disabled', true);
+		  $('#tabProcesListo').prop('disabled', true);
+		  $('#tabProcesSus').prop('disabled', true);		  
+
+>>>>>>> cfacaf4ff4e0678fca8a3252451e86ca85985151
+>>>>>>> fedb0a0f860aa429964e3a4e952fb5fd01e69e59
 		}
 	else 
 	{
 		$('#'+id_fila).addClass('seleccionada');		
 		$('#procesActual').text('Proceso '+ id_fila[numx-1]);
+<<<<<<< HEAD
 		$('#tabProcesElim').prop('disabled',false);
+=======
+<<<<<<< HEAD
+=======
+
+		$('#tabProcesElim').prop('disabled',false);
+
+		  $('#tabProcesElim').prop('disabled', false);
+		  $('#tabProcesListo').prop('disabled', false);
+		  $('#tabProcesSus').prop('disabled', false);
+
+>>>>>>> cfacaf4ff4e0678fca8a3252451e86ca85985151
+>>>>>>> fedb0a0f860aa429964e3a4e952fb5fd01e69e59
 	}	
     id_fila_selected=id_fila;
 }
@@ -281,5 +314,15 @@ $(document).ready(function() {
 	$('#tabProcesElim').click(function() {
 		eliminarPro(id_fila_selected);
 		$('#procesActual').text('X');
+<<<<<<< HEAD
 			});		
+=======
+			});
+	$('#tabMemPri').click(function() {
+		eliminarPro(id_fila_selected);		
+			});
+	/*$('tabProcesSus').click(function() {
+		
+	});*/
+>>>>>>> fedb0a0f860aa429964e3a4e952fb5fd01e69e59
 });
