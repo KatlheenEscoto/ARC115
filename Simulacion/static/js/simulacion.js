@@ -209,7 +209,7 @@ function seleccionarPro(id_fila)
 	else 
 	{
 		$('#'+id_fila).addClass('seleccionada');		
-		$('#procesActual').text(id_fila[numx-1]);
+		$('#procesActual').text('Proceso '+ id_fila[numx-1]);
 	}	
     id_fila_selected=id_fila;
 }
