@@ -151,7 +151,7 @@ function crearProceso(){
 			return false;
 		}else{
 			alert('Proceso: ' + campo1 + '\nTamaño: ' + campo2 );
-			$('#tabProcesElim').prop('disabled', false);
+			$('#tabProcesElim').prop('disabled', true);
 			$('#tabProcesListo').prop('disabled', false);
 			$('#tabProcesSus').prop('disabled', false);
 			$('#termSimBtn').prop('disabled', false);
@@ -216,20 +216,24 @@ function seleccionarPro(id_fila)
 	var numx = id_fila.length;	
 	if($('#'+id_fila).hasClass('seleccionada'))
 		{
-		  $('#'+id_fila).removeClass('seleccionada');		  
+		  $('#'+id_fila).removeClass('seleccionada');
+		  $('#tabProcesElim').prop('disabled',true);		  
 		}
 	else 
 	{
 		$('#'+id_fila).addClass('seleccionada');		
 		$('#procesActual').text('Proceso '+ id_fila[numx-1]);
+		$('#tabProcesElim').prop('disabled',false);
 	}	
     id_fila_selected=id_fila;
 }
 
 function eliminarPro(id_fila)
 {   
-    idPro1 = $('#'+id_fila).eq(0).text(); 	
+	
+    idPro1 = $('#'+id_fila).eq(0).text();
     $('#'+id_fila).remove();
+    $('#tabProcesElim').prop('disabled',true);
     var idFil = id_fila.length;
     var num = parseInt(id_fila[idFil-1])
 	var texto='';
