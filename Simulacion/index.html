@@ -19,8 +19,8 @@
 <div>
 	<div class="col-md-12" >
 		<div class="col-md-3">
-		<div class="panel panel-default">
-			<div class="panel-body" id="iniciarPanel">
+		<div class="panel panel-default" id="iniciarPanel">
+			<div class="panel-body" >
 				<form action="" method="POST" oninput="tamMemS.value=parseFloat(tamMemP.value)*2.5">
 					<center> <font size="3" color="gray"><b>Memoria</b></font> </center>
 
@@ -48,7 +48,7 @@
 
 		<div class="col-md-2">
 
-		<div class="panel panel-default">
+		<div class="panel panel-default" id="panelProces">
 			<div class="panel-body">
 				<form>
 				<center> <font size="3" color="gray"><b>Crear Proceso</b></font> </center>
@@ -72,9 +72,9 @@
 		</div>
 
 		<div class="col-md-4">
-		<div class="panel panel-default">
+		<div class="panel panel-default" id="panelEst">
 			<div class="panel-body">
-				
+
 				<center> <font size="3" color="gray"><b>Estadísticas</b></font> </center>
 				<br>
 				<p>
@@ -131,7 +131,7 @@
 						<td>Paginas en memoria s.</td>
 					</tr>
 				</thead>
-				<tbody id="tabProcesBody">
+				<tbody id="tabProcesBody" class="">
 					<tr>
 						<!--<td></td>
 						<td></td>
@@ -170,7 +170,7 @@
 	 <div class="col-md-6">
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<table class="table table-inverse table-bordered" id="tabMemPri">
+				<table class="table table-inverse table-bordered table table-fixed" id="tabMemPri">
 				<caption><center> <font size="3" color="gray"><b>Memoria Principal</b></font> </center></caption>
 				<thead id="tabMemPriHead">
 					<tr>
@@ -181,7 +181,7 @@
 						<td># Página</td>
 					</tr>
 				</thead>
-				<tbody id="tabMemPriBody">
+				<tbody id="tabMemPriBody" class="">
 					<!--<tr>
 						<td></td>
 						<td></td>
