@@ -11,20 +11,28 @@
 	<script src="static/js/simulacion.js" type="text/javascript"></script>
 	<script src="static/js/MemoriaPrincipal.js" type="text/javascript"></script>
 
+	<style>
+		@font-face{
+			font-family: "Pacifico";
+			src: url("static/fonts/Pacifico-Regular.ttf") format("truetype");
+		}
+	</style>
 </head>
 <body bgcolor="gray">
+
 <header style="background-color:black;">
-	<center> <font size="5" color="white"><b>Simulación de Paginación de Memoria </b></font> </center>
+	<center>Simulación de <b style="font-family: 'Pacifico', cursive;">Paginación de Memoria</b></center>
 </header>
 
 <div>
+	<br />
 	<div class="col-md-12" >
 		<div class="col-md-3">
 		<div class="panel panel-default" id="iniciarPanel">
 			<div class="panel-body" >
 				<form action="" method="POST" oninput="tamMemS.value=parseFloat(tamMemP.value)*2.5">
 					<center> <font size="3" color="gray"><b>Memoria</b></font> </center>
-
+					<br>
 					<p>
 						<label>Tamaño de memoria principal</label>
 						<input class="form-control" type="number" max="1000000" min="0" step="2" id="tamMemP" required>
@@ -221,13 +229,15 @@
 			</div>
 		</div>
 	 </div>
+
 	</div>
 </div>
 
+<footer class="text-center">
+		<br>
+		<p style="font-family: 'Pacifico', cursive;"> Para mayor información: <a href="acercade.html" >Acerca De.</a></p>
+</footer>
 
-<script src="static/js/Pagina.js"></script>
-<script src="static/js/memoria.js"></script>
-<script src="static/js/proceso.js"></script>
-<script defer type="text/javascript" src="static/js/funciones.js"></script>
+
 </body>
 </html>
