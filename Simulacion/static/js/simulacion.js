@@ -56,7 +56,7 @@ function iniciarInstalacion(){
 			alert('Memoria principal: '+ tamanioDeMemoria + '\nMemoria secundaria: ' + tamanioSecundario + '\nTamaño de Página: ' + tamanioPagina);
 			
 			var numeroDeMarcos = Math.round(tamanioDeMemoria/tamanioPagina);
-			var tamanioPaginaHexa = parseInt(tamanioPagina.toString(),16);
+			var tamanioPaginaHexa = tamanioPagina.toString(16);
 			alert(tamanioPaginaHexa+"hexa")
 			var dirFisica=0;
 
