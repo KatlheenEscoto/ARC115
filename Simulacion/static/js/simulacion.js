@@ -142,7 +142,10 @@ function crearProceso(){
 
 function agregarProceso(){
 	contP++;
-	var fila='<tr class="selected" id="fila'+contP+'" onclick="seleccionar(this.id);"><td>'+contP+'</td><td></td><td></td><td></td></td><td></td><td></td><td></td></tr>';
+	var nombre = $('#nomProCrear').val();
+	var tamProc = $('#tamProCrear').val();
+	//var pagina = cantidadPaginas();	
+	var fila='<tr class="selected" id="fila'+contP+'" onclick="seleccionar(this.id);"><td>'+contP+'</td><td>'+nombre+'</td><td>'+tamProc+'</td><td></td></td><td></td><td></td><td></td></tr>';
 	$('#tabProces').append(fila);
 	reordenarProceso();
 }
@@ -153,4 +156,16 @@ function reordenarProceso(){
 			$(this).find('td').eq(0).text(num);
 		num++;
 	});
+
+/*
+function cantidadPaginas()
+{
+	var tamaño1 = parseInt($('#tamMemP').val()); 
+	var tamañoPagina1 = parseInt($('#tamProCrear').val());
+	if(tamaño1 % tamañoPagina1 != 0)
+		{
+			return (Math.ceil(tamaño1/tamañoPagina1)+1);
+		}
+	return tamaño1 / tamañoPagina1; 
+}*/
 }
