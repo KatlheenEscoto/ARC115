@@ -399,3 +399,20 @@ $(document).ready(function() {
 	});
 
 });
+
+function fifo(numPag){
+	var menorid = 300;
+	var marMP = parseInt($('#estMarPag').text());
+	var idPro = 0;
+
+	for (var i = 0 ; i <= marMP; i++) {
+
+		$('#tabMemPri tbody tr').each(function(){
+			idPro=parseInt($(this).find('td').eq(2).text());
+			if(idPro<menorid){
+				menorid=idPro;
+			}
+		});
+	};	
+
+}
