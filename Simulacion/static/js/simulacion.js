@@ -258,6 +258,8 @@ function eliminarPro(id_fila)
     idPro1 = $('#'+id_fila).eq(0).text();
     $('#'+id_fila).remove();
     $('#tabProcesElim').prop('disabled',true);
+    $('#tabProcesListo').prop('disabled',true);
+    $('#tabProcesSus').prop('disabled',true);
     var idFil = id_fila.length;
     var num = parseInt(id_fila[idFil-1])
 	var texto='';
