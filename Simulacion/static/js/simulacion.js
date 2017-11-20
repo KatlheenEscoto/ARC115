@@ -310,6 +310,49 @@ function listo(id_fila){
 
 }
 
+function suspender(id_fila){
+	var car=0;
+	idPro2 = $('#'+id_fila).find('td').eq(0).text();
+	idPro = parseInt(idPro2);
+	nomPro = $('#'+id_fila).find('td').eq(1).text();
+	tamPro1 = $('#'+id_fila).find('td').eq(2).text();
+	tamPro = parseInt(tamPro1);
+	activo1 = $('#'+id_fila).find('td').eq(4).text();
+	activo = activo1.toLowerCase();
+	if(activo === 'activa')
+	{
+		activo1 = $('#'+id_fila).find('td').eq(4).text('espera');
+		idPro1 = $('#'+id_fila).find('td').eq(0).text();
+        pags = parseInt($('#'+id_fila).find('td').eq(0).text());
+        pagsP = parseInt($('#'+id_fila).find('td').eq(5).text());
+        pagsM = parseInt($('#'+id_fila).find('td').eq(6).text());
+
+        actualizarEstadisticos(0,pags,-pagsP,-pagsM);
+        $('#tabProcesElim').prop('disabled',true);
+        $('#tabProcesListo').prop('disabled',true);
+        $('#tabProcesSus').prop('disabled',true);
+	    var texto='';
+
+	   for (var i = 0 ; i <= pags; i++) {
+
+		$('#tabMemPri tbody tr').each(function(){
+			texto=$(this).find('td').eq(2).text();
+			if(texto === idPro1){
+				$(this).find('td').eq(2).text(' ');
+				$(this).find('td').eq(3).text(' ');
+				$(this).find('td').eq(4).text(' ');
+			}
+		});		
+	};
+   }
+   $('#tabMemSec tbody tr').eq(car).each(function(){	
+			$(this).find('td').eq(1).text(idPro2);
+			$(this).find('td').eq(2).text(nomPro);
+			$(this).find('td').eq(3).text(tamPro);
+		});
+    car++;
+}
+
 function agregarProcesoListo(idPro, nomPro, tamPro){
 	contP++;	
 	var nombre = nomPro;
@@ -396,6 +439,10 @@ $(document).ready(function() {
 
 	$('#tabProcesListo').click(function() {
 		listo(id_fila_selected);
+	});
+
+	$('#tabProcesSus').click(function() {
+		suspender(id_fila_selected);
 	});
 
 });
