@@ -3,7 +3,6 @@ var memoria = null; //variable para Objeto Memoria
 var procesos = [];  //lista de procesos
 var contadorProceso = 0; //contador de procesos
 var textArea = document.createElement('textarea');
-var filasSec = $('#tabMemSec tr').length;
   textArea.cols = 50;
   textArea.rows = 50; 
 
@@ -12,6 +11,7 @@ var contPP=0; //Principal.
 var contSec=0; //Secundaria.
 var contP=0; //Procesos.
 var id_fila_selected=[];
+var filasSec = $('#tabMemSec tr').length;
 
 /* Iniciar Simulación */
 
@@ -131,6 +131,7 @@ function agregarProcesoMemS(corPag,nomPro,idPro,numPag){
 					corPag++;
 				}
 		});
+		filasSec++;
 	return (numPag-corPag);
 }
 
@@ -304,7 +305,6 @@ function listo(id_fila){
 	if(espera === 'espera'){
 		$('#tabProcesElim').click();
 		agregarProcesoListo(idPro, nomPro, tamPro);
-
 	}else{
 		alert("El proceso esta activo.");
 	}
@@ -316,7 +316,7 @@ function suspender(id_fila){
 	idPro2 = $('#'+id_fila).find('td').eq(0).text();
 	idPro = parseInt(idPro2);
 	nomPro = $('#'+id_fila).find('td').eq(1).text();
-	tamPro1 = $('#'+id_fila).find('td').eq(2).text();
+	tamPro1 = $('#'+id_fila).find('td').eq(3).text();
 	tamPro = parseInt(tamPro1);
 	activo1 = $('#'+id_fila).find('td').eq(4).text();
 	activo = activo1.toLowerCase();
@@ -333,7 +333,6 @@ function suspender(id_fila){
         $('#tabProcesListo').prop('disabled',true);
         $('#tabProcesSus').prop('disabled',true);
 	    var texto='';
-
 	   for (var i = 0 ; i <= pags; i++) {
 
 		$('#tabMemPri tbody tr').each(function(){
