@@ -154,6 +154,7 @@ function crearProceso(){
 			$('#tabProcesElim').prop('disabled', true);
 			$('#tabProcesListo').prop('disabled', false);
 			$('#tabProcesSus').prop('disabled', false);
+			$('#termSimBtn').prop('disabled', false);
 			agregarProceso();		
 			
 		}
