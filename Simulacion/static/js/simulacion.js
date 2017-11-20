@@ -451,13 +451,43 @@ function fifo(numPag){
 	var menorid = 300;
 	var marMP = parseInt($('#estMarPag').text());
 	var idPro = 0;
-
+	var pro = 0;
+//Extraer el menor id, es el primero en entrar
 	for (var i = 0 ; i <= marMP; i++) {
 
 		$('#tabMemPri tbody tr').each(function(){
 			idPro=parseInt($(this).find('td').eq(2).text());
 			if(idPro<menorid){
 				menorid=idPro;
+			}
+		});
+	};
+//Traer Proceso de Lista de Procesos
+	$('#tabProcesBody tr').each(function(){
+		pro = parseInt($(this).find('td').eq(0).text());
+	});
+
+    //actualizarEstadisticos(0,pags,-pagsP,-pagsM);
+//Hacer el cambio
+	var texto='';
+
+	for (var i = 0 ; i <= pags; i++) {
+
+		$('#tabMemPri tbody tr').each(function(){
+			texto=$(this).find('td').eq(2).text();
+			if(texto === idPro1){
+				$(this).find('td').eq(2).text(' ');
+				$(this).find('td').eq(3).text(' ');
+				$(this).find('td').eq(4).text(' ');
+			}
+		});
+
+		$('#tabMemSec tbody tr').each(function(){
+			texto=$(this).find('td').eq(1).text();
+			if(texto === idPro1){
+				$(this).find('td').eq(1).text(' ');
+				$(this).find('td').eq(2).text(' ');
+				$(this).find('td').eq(3).text(' ');
 			}
 		});
 	};	
