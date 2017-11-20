@@ -152,8 +152,8 @@ function crearProceso(){
 		}else{
 			alert('Proceso: ' + campo1 + '\nTamaño: ' + campo2 );
 			$('#tabProcesElim').prop('disabled', true);
-			$('#tabProcesListo').prop('disabled', true);
-			$('#tabProcesSus').prop('disabled', true);
+			$('#tabProcesListo').prop('disabled', false);
+			$('#tabProcesSus').prop('disabled', false);
 			$('#termSimBtn').prop('disabled', false);
 			agregarProceso();		
 			
