@@ -11,6 +11,7 @@ var contPP=0; //Principal.
 var contSec=0; //Secundaria.
 var contP=0; //Procesos.
 var id_fila_selected=[];
+var filasSec = $('#tabMemSec tr').length;
 
 /* Iniciar Simulación */
 
@@ -130,6 +131,7 @@ function agregarProcesoMemS(corPag,nomPro,idPro,numPag){
 					corPag++;
 				}
 		});
+		filasSec++;
 	return (numPag-corPag);
 }
 
@@ -303,7 +305,6 @@ function listo(id_fila){
 	if(espera === 'espera'){
 		$('#tabProcesElim').click();
 		agregarProcesoListo(idPro, nomPro, tamPro);
-
 	}else{
 		alert("El proceso esta activo.");
 	}
@@ -315,7 +316,7 @@ function suspender(id_fila){
 	idPro2 = $('#'+id_fila).find('td').eq(0).text();
 	idPro = parseInt(idPro2);
 	nomPro = $('#'+id_fila).find('td').eq(1).text();
-	tamPro1 = $('#'+id_fila).find('td').eq(2).text();
+	tamPro1 = $('#'+id_fila).find('td').eq(3).text();
 	tamPro = parseInt(tamPro1);
 	activo1 = $('#'+id_fila).find('td').eq(4).text();
 	activo = activo1.toLowerCase();
@@ -332,7 +333,6 @@ function suspender(id_fila){
         $('#tabProcesListo').prop('disabled',true);
         $('#tabProcesSus').prop('disabled',true);
 	    var texto='';
-
 	   for (var i = 0 ; i <= pags; i++) {
 
 		$('#tabMemPri tbody tr').each(function(){
@@ -345,12 +345,12 @@ function suspender(id_fila){
 		});		
 	};
    }
-   $('#tabMemSec tbody tr').eq(car).each(function(){	
+   $('#tabMemSec tbody tr').eq(filasSec).each(function(){	
 			$(this).find('td').eq(1).text(idPro2);
 			$(this).find('td').eq(2).text(nomPro);
 			$(this).find('td').eq(3).text(tamPro);
 		});
-    car++;
+    filasSec++;
 }
 
 function agregarProcesoListo(idPro, nomPro, tamPro){
