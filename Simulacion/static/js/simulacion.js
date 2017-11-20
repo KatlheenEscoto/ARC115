@@ -174,29 +174,61 @@ function agregarProceso(){
 		if (cargadasMP==0) {
 			incapAlmacenaje = agregarProcesoMemS(cargadasMP,nombre,contP,paginas);
 			if (incapAlmacenaje>0) {
-				alert("El proceso tiene demasiado tamaño para ser ejecutado.");
+				alert("El proceso tiene demasiado tamaño para ser cargado.");
 
-			};
+			}else {
+			    //Actulizar estadisticos
+			    actualizarEstadisticos(parseInt(tamProc),paginas,cargadasMP,cargadasMS);				
+			}
 		}else {
 			incapAlmacenaje = agregarProcesoMemS((cargadasMP),nombre,contP,paginas);
 			if (incapAlmacenaje>0) {
-				alert("El proceso tiene demasiado tamaño para ser ejecutado.");
-			};			
+				alert("El proceso tiene demasiado tamaño para ser cargado.");
+			}else {
+			    //Actulizar estadisticos
+			    actualizarEstadisticos(parseInt(tamProc),paginas,cargadasMP,cargadasMS);				
+			}		
 		}
 
 		
 	}
 	if(cargadasMP==0){
-		estado="Espera";
+		if(incapAlmacenaje>0){	
+		estado="Desbordamiento";
+		var fila='<tr class="selected" id="fila'+contP+'" onclick="seleccionarPro(this.id);"><td>'+contP+'</td><td>'+nombre+'</td><td>'+tamProc+'</td><td>'+paginas+'</td><td>'+estado+'</td><td>'+estado+'</td><td>'+estado+'</td></tr>';
+		$('#tabProces').append(fila);					
+		}else {
+			estado="Espera";
+			var fila='<tr class="selected" id="fila'+contP+'" onclick="seleccionarPro(this.id);"><td>'+contP+'</td><td>'+nombre+'</td><td>'+tamProc+'</td><td>'+paginas+'</td><td>'+estado+'</td><td>'+cargadasMP+'</td><td>'+cargadasMS+'</td></tr>';
+			$('#tabProces').append(fila);
+		}
+
 	}else{
 		estado="Activa";
+
+		var fila='<tr class="selected" id="fila'+contP+'" onclick="seleccionarPro(this.id);"><td>'+contP+'</td><td>'+nombre+'</td><td>'+tamProc+'</td><td>'+paginas+'</td><td>'+estado+'</td><td>'+cargadasMP+'</td><td>'+cargadasMS+'</td></tr>';
+		$('#tabProces').append(fila);
 	}
-	var fila='<tr class="selected" id="fila'+contP+'" onclick="seleccionarPro(this.id);"><td>'+contP+'</td><td>'+nombre+'</td><td>'+tamProc+'</td><td>'+paginas+'</td><td>'+estado+'</td><td>'+cargadasMP+'</td><td>'+cargadasMS+'</td></tr>';
-	$('#tabProces').append(fila);
+
+
 	reordenarProceso();
 	n++;
 	$('#nomProCrear').val('Proceso '+ n);
 }
+
+
+function actualizarEstadisticos(tamProc,pagProc,cargadasMP,cargadasMS){
+    var capMemP =parseInt($('#estCantMem').text());
+    var cantMemPDis=parseInt($('#estMemDis').text());
+    var cantMemPUsa=parseInt($('#estMemUsa').text());
+    var marcosMP = parseInt($('#estMarPag').text());
+    var tamPag = parseInt($('#estTamPag').text());
+    var capMemS = parseInt($('#estTamMemSec').text());
+    var cantMemSDis =parseInt( $('#estMemSecDis').text());
+
+    asignarEstadisticos(capMemP,(cantMemPDis-(cargadasMP*tamPag)),(cantMemPUsa+(cargadasMP*tamPag)),marcosMP,tamPag,capMemS,(cantMemSDis-(cargadasMS*tamPag)));
+}
+
 
 function seleccionarPro(id_fila)
 {
