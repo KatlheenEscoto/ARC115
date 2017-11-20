@@ -160,6 +160,7 @@ function crearProceso(){
 		}
 	}
 }
+
 var n=1;
 function agregarProceso(){
 	contP++;	
@@ -291,6 +292,74 @@ function eliminarPro(id_fila)
 
 }
 
+function listo(id_fila){
+	idPro1 = $('#'+id_fila).find('td').eq(0).text();
+	idPro = parseInt(idPro1);
+	nomPro = $('#'+id_fila).find('td').eq(1).text();
+	tamPro1 = $('#'+id_fila).find('td').eq(2).text();
+	tamPro = parseInt(tamPro1);
+	espera1 = $('#'+id_fila).find('td').eq(4).text();
+	espera = espera1.toLowerCase();
+	if(espera === 'espera'){
+		$('#tabProcesElim').click();
+		agregarProcesoListo(idPro, nomPro, tamPro);
+
+	}else{
+		alert("El proceso esta activo.");
+	}
+
+}
+
+function agregarProcesoListo(idPro, nomPro, tamPro){
+	contP++;	
+	var nombre = nomPro;
+	var tamProc = tamPro;
+	var paginas = cantidadPaginas(tamProc);
+	var	cargadasMP = agregarProcesoMemP(paginas,nombre,contP);
+	var cargadasMS = paginas - cargadasMP;
+	var estado='';
+	var incapAlmacenaje=0;
+	if (cargadasMS>0){
+		if (cargadasMP==0) {
+			incapAlmacenaje = agregarProcesoMemS(cargadasMP,nombre,contP,paginas);
+			if (incapAlmacenaje>0) {
+				alert("El proceso tiene demasiado tamaño para ser cargado.");
+
+			}else {
+			    //Actulizar estadisticos
+			    actualizarEstadisticos(parseInt(tamProc),paginas,cargadasMP,cargadasMS);				
+			}
+		}else {
+			incapAlmacenaje = agregarProcesoMemS((cargadasMP),nombre,contP,paginas);
+			if (incapAlmacenaje>0) {
+				alert("El proceso tiene demasiado tamaño para ser cargado.");
+			}else {
+			    //Actulizar estadisticos
+			    actualizarEstadisticos(parseInt(tamProc),paginas,cargadasMP,cargadasMS);				
+			}		
+		}
+		
+	}
+	if(cargadasMP==0){
+		if(incapAlmacenaje>0){	
+		estado="Desbordamiento";
+		var fila='<tr class="selected" id="fila'+contP+'" onclick="seleccionarPro(this.id);"><td>'+idPro+'</td><td>'+nombre+'</td><td>'+tamProc+'</td><td>'+paginas+'</td><td>'+estado+'</td><td>'+estado+'</td><td>'+estado+'</td></tr>';
+		$('#tabProces').append(fila);					
+		}else {
+			estado="Espera";
+			var fila='<tr class="selected" id="fila'+contP+'" onclick="seleccionarPro(this.id);"><td>'+contP+'</td><td>'+nombre+'</td><td>'+tamProc+'</td><td>'+paginas+'</td><td>'+estado+'</td><td>'+cargadasMP+'</td><td>'+cargadasMS+'</td></tr>';
+			$('#tabProces').append(fila);
+		}
+
+	}else{
+		estado="Activa";
+
+		var fila='<tr class="selected" id="fila'+contP+'" onclick="seleccionarPro(this.id);"><td>'+contP+'</td><td>'+nombre+'</td><td>'+tamProc+'</td><td>'+paginas+'</td><td>'+estado+'</td><td>'+cargadasMP+'</td><td>'+cargadasMS+'</td></tr>';
+		$('#tabProces').append(fila);
+	}
+	reordenarProceso();
+}
+
 function reordenarProceso(){
 	var num=1;
 		$('#tabla tbody tr').each(function(){
@@ -323,5 +392,10 @@ $(document).ready(function() {
 	$('#tabProcesElim').click(function() {
 		eliminarPro(id_fila_selected);
 		$('#procesActual').text('X');
-	});		
+	});
+
+	$('#tabProcesListo').click(function() {
+		listo(id_fila_selected);
+	});
+
 });
