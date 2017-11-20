@@ -223,19 +223,17 @@ function eliminarPro(id_fila)
 {   
 	
     idPro1 = $('#'+id_fila).eq(0).text();
+    idPro = parseInt(idPro1);
     $('#'+id_fila).remove();
     $('#tabProcesElim').prop('disabled',true);
-    var idFil = id_fila.length;
-    var num = parseInt(id_fila[idFil-1])
-	var texto='';
-	if(parseInt(idPro1) == num)
-	{	//Funcion para eliminar de la MemPrin los procesos
-	$('#tabMemPri tbody tr').eq(parseInt(idPro1)-1).each(function() {   
-		$(this).find('td').eq(2).text(null);
-		$(this).find('td').eq(3).text(null);
-		$(this).find('td').eq(4).text(null);
-	});;
-    }
+    $('#tabMemPri tr').each(function () {
+    	var idProMem = $(this).find("td").eq(2).html();
+    	idProM = parseInt(idProMem);
+    	if(idPro == idProM){
+    		borrarContenido(id_fila, idPro1);
+    	}
+    });
+
 }
 
 function reordenarProceso(){
@@ -270,5 +268,5 @@ $(document).ready(function() {
 	$('#tabProcesElim').click(function() {
 		eliminarPro(id_fila_selected);
 		$('#procesActual').text('X');
-			});		
-			});
+	});		
+});
