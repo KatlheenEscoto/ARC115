@@ -260,14 +260,8 @@ function eliminarPro(id_fila)
 
     $('#tabProcesBody #'+id_fila).remove();
     $('#tabProcesElim').prop('disabled',true);
-<<<<<<< HEAD
-
-=======
     $('#tabProcesListo').prop('disabled',true);
     $('#tabProcesSus').prop('disabled',true);
-    var idFil = id_fila.length;
-    var num = parseInt(id_fila[idFil-1])
->>>>>>> f2e0d011603e2c8c8e4d8ac81e0f12768e3eb511
 	var texto='';
 
 	for (var i = 0 ; i <= pags; i++) {
