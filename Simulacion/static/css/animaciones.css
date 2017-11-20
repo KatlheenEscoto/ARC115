@@ -1,0 +1,23 @@
+	
+	body {
+		background: url('../imagenes/fondo2.jpg');
+		background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        height: 100%;
+        font-family: 'Tw Cen MT';
+        text-align: center;
+        font-size: 17px;
+	}
+
+	.container{
+        padding: 60px 120px;
+        height: 100%;
+	}
+
+	h2{
+		font-family: 'Pacifico', cursive;
+		text-align: center;
+		background: rgba(175,238,238,0.5);
+	}
+

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+
+	<title>Paginación de Memoria</title>
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="static/css/estilos.css">
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="static/js/simulacion.js" type="text/javascript"></script>
+	<script src="static/js/MemoriaPrincipal.js" type="text/javascript"></script>
+
+	<style>
+		@font-face{
+			font-family: "Pacifico";
+			src: url("static/fonts/Pacifico-Regular.ttf") format("truetype");
+		}
+	</style>
+</head>
+<body bgcolor="gray">
+
+<header style="background-color:black;">
+	<center>Simulación de <b style="font-family: 'Pacifico', cursive;">Paginación de Memoria</b></center>
+</header>
+
+<div>
+	<br />
+	<div class="col-md-12" >
+		<div class="col-md-3">
+		<div class="panel panel-default" id="iniciarPanel">
+			<div class="panel-body" >
+				<form action="" method="POST" oninput="tamMemS.value=parseFloat(tamMemP.value)*2.5">
+					<center> <font size="3" color="gray"><b>Memoria</b></font> </center>
+					<br>
+					<p>
+						<label>Tamaño de memoria principal</label>
+						<input class="form-control" type="number" max="1000000" min="0" step="2" id="tamMemP" required>
+					</p>
+					<p>
+						<label>Tamaño de memoria secundaria</label>
+						<output id="tamMemS" name="tamMemS" for="valor1"></output>
+						<!--<input class="form-control" type="number" max="1000000" min="0" step="2" id="tamMemS" required>-->
+					</p>
+					<p>
+						<label>Tamaño de paginas</label>
+						<input class="form-control" type="number" max="10000" min="0" step="2" id="tamPag" required>
+					</p>					
+					<p>	
+						<center><input type="button" class="btn btn-info btn-sm" name="iniciar" id="iniciar" value="Iniciar" onclick="iniciarInstalacion()" disabled="true"></center>
+					</p>
+
+				</form>
+			</div>
+		</div>
+		</div>
+
+		<div class="col-md-2">
+
+		<div class="panel panel-default" id="panelProces">
+			<div class="panel-body">
+				<form>
+				<center> <font size="3" color="gray"><b>Crear Proceso</b></font> </center>
+				<br>
+				<p>
+					<label>Nombre del Proceso</label>
+					<input type="text" disabled="disabled" class="form-control" id="nomProCrear" value="Proceso 1" required>
+				</p>
+				<br>
+				<p>
+					<label>Tamaño del proceso</label>
+					<input id="tamProCrear" class="form-control" type="number" max="16000" min="0" step="2" required>
+				</p>
+				<br>
+				<p>
+					<center><input class="btn btn-info btn-sm" id="nuevoProcesoBtn" type="button" name="crear" value="Crear Proceso" disabled="true" onclick="crearProceso()"></center>
+				</p>	
+				</form>	
+			</div>
+		</div>
+		</div>
+
+		<div class="col-md-4">
+		<div class="panel panel-default" id="panelEst">
+			<div class="panel-body">
+
+				<center> <font size="3" color="gray"><b>Estadísticas</b></font> </center>
+				<br>
+				<p>
+					<label>Cantidad de memoria:</label><label id="estCantMem"></label> <br>
+					<label>Memoria disponible:</label><label id="estMemDis"></label><br>
+					<label>Memoria usada:</label><label id="estMemUsa"></label><br>
+					<label>Marcos de página:</label><label id="estMarPag"></label><br>
+					<label>Tamaño de página:</label><label id="estTamPag"></label><br>
+					<label>Tamaño de Mem.Secundaria:</label><label id="estTamMemSec"></label><br>
+					<label>Mem. Secundaria disponible:</label><label id="estMemSecDis"></label></h5>
+				</p>		
+			</div>
+		</div>
+		</div>
+
+		<div class="col-md-3">
+		<div class="panel panel-default" id="opcSimul">
+			<div class="panel-body">
+			<br>
+				<center> <font size="3" color="gray"><b>Opciones de Simulación</b></font> </center>
+				<br>
+					<p>
+					<form action="" method="POST">	
+						<center><button class="btn btn-danger" id="termSimBtn" type="submit" disabled="true"> <span class="glyphicon glyphicon-ok"></span> Terminar Simulación </button></center>
+					</form>
+					</p>
+				<br>
+					<p>
+						<center><button class="btn btn-success" id="nuevaSimBtn" onclick="iniciarSimulacion();"> <span class="glyphicon glyphicon-ok"></span>   Nueva Simulación   </button></center>
+					</p>
+				<br>
+					<p>
+						<center><a href="introduccionSimulacion.html" class="btn btn-primary" id="volvIntroBtn"> <span class="glyphicon glyphicon-ok"></span> Volver a la introducción</a></center>
+					</p>		
+			</div>
+		</div>
+		</div>
+	</div>
+
+	<div class="col-md-12">
+	 <div class="col-md-10">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<table class="table table-inverse table-bordered" id="tabProces">
+				<caption><center> <font size="3" color="gray"><b>Lista de Procesos</b></font> </center></caption>
+				<thead id="tabProcesHead">
+					<tr>
+						<td>ID Proceso</td>
+						<td>Nombre</td>
+						<td>Tamaño</td>
+						<td>Páginas</td>
+						<td>Estado</td>
+						<td>Paginas en memoria p.</td>
+						<td>Paginas en memoria s.</td>
+					</tr>
+				</thead>
+				<tbody id="tabProcesBody" class="">
+					<tr>
+						<!--<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>-->		
+					</tr>
+				</tbody>
+				</table>
+			</div>
+		</div>
+	 </div>
+		<div class="col-md-2">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<center> <font size="2" color="gray"><b>Cambiar estado de proceso</b></font> </center>
+					<p>
+						<center>
+							<input id="tabProcesElim" class="btn btn-info btn-sm" type="button" name="eliminar" value="Eliminar" disabled="true">
+							<input id="tabProcesListo" class="btn btn-info btn-sm" type="button" name="listo" value="Listo" disabled="true">
+						</center>
+					</p>
+					<p>
+						<center><input id="tabProcesSus" class="btn btn-info btn-sm" type="button" name="suspender" value="Suspender" disabled="true"></center>
+					</p>
+					<label>Proceso actual:</label> 
+					<p id="procesActual">X</p>					
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-12">
+	 <div class="col-md-6">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<table class="table table-inverse table-bordered table table-fixed" id="tabMemPri">
+				<caption><center> <font size="3" color="gray"><b>Memoria Principal</b></font> </center></caption>
+				<thead id="tabMemPriHead">
+					<tr>
+						<td>Dirección Fisica</td>
+						<td># Marco</td>
+						<td>Id Proceso</td>
+						<td>Nombre Proceso</td>
+						<td># Página</td>
+					</tr>
+				</thead>
+				<tbody id="tabMemPriBody" class="">
+					<!--<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>		
+					</tr>-->
+				</tbody>
+				</table>
+			</div>
+		</div>
+	 </div>
+
+	 <div class="col-md-6">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<table class="table table-inverse table-bordered" id="tabMemSec">
+				<caption><center> <font size="3" color="gray"><b>Memoria Secundaria</b></font> </center></caption>
+				<thead id="tabMemSecHead">
+					<tr>
+						<td># Almacenamiento</td>
+						<td>Id Proceso</td>
+						<td>Nombre Proceso</td>
+						<td># Página</td>
+					</tr>
+				</thead>
+				<tbody id="tabMemSecBody">
+					<!--<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>		
+					</tr>-->
+				</tbody>
+				</table>
+			</div>
+		</div>
+	 </div>
+
+	</div>
+</div>
+
+<footer class="text-center">
+		<br>
+		<p style="font-family: 'Pacifico', cursive;"> Para mayor información: <a href="acercade.html" >Acerca De.</a></p>
+</footer>
+
+
+</body>
+</html>
