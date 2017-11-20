@@ -206,7 +206,8 @@ function seleccionarPro(id_fila)
 		  $('#'+id_fila).removeClass('seleccionada');
 		  $('#tabProcesElim').prop('disabled',true);  
 		  $('#tabProcesListo').prop('disabled', true);
-		  $('#tabProcesSus').prop('disabled', true);  
+		  $('#tabProcesSus').prop('disabled', true);
+		  $('#procesActual').text('x');  
 		}
 	else 
 	{
