@@ -255,7 +255,6 @@ function seleccionarPro(id_fila)
 function eliminarPro(id_fila)
 {   
 	
-<<<<<<< HEAD
     idPro1 = $('#'+id_fila).eq(0).text();
     idPro = parseInt(idPro1);
     $('#'+id_fila).remove();
@@ -267,7 +266,6 @@ function eliminarPro(id_fila)
     		borrarContenido(id_fila, idPro1);
     	}
     });
-=======
     idPro1 = $('#'+id_fila).find('td').eq(0).text();
     pags = parseInt($('#'+id_fila).find('td').eq(0).text());
     pagsP = parseInt($('#'+id_fila).find('td').eq(5).text());
@@ -301,7 +299,6 @@ function eliminarPro(id_fila)
 			}
 		});
 	};
->>>>>>> 967573933dc6e672a7634cbb85dee0546c34576e
 
 }
 
