@@ -108,7 +108,7 @@ function agregarProcesoMemP(numPag,nomPro,idPro){
 
 		$('#tabMemPri tbody tr').each(function(){
 				texto=$(this).find('td').eq(2).text();
-				if(texto === '' && numPag>cargadas ){
+				if( (texto === '' && numPag>cargadas) || (texto===' ' && numPag>cargadas)){
 					$(this).find('td').eq(2).text(idPro);
 					$(this).find('td').eq(3).text(nomPro);
 					$(this).find('td').eq(4).text(cargadas);
@@ -123,7 +123,7 @@ function agregarProcesoMemS(corPag,nomPro,idPro,numPag){
 
 		$('#tabMemSec tbody tr').each(function(){
 				texto=$(this).find('td').eq(1).text();
-				if(texto === '' && numPag>corPag ){
+				if((texto === '' && numPag>corPag) || (texto===' ' && numPag>corPag)){
 					$(this).find('td').eq(1).text(idPro);
 					$(this).find('td').eq(2).text(nomPro);
 					$(this).find('td').eq(3).text(corPag);
@@ -257,6 +257,10 @@ function eliminarPro(id_fila)
 	
     idPro1 = $('#'+id_fila).find('td').eq(0).text();
     pags = parseInt($('#'+id_fila).find('td').eq(0).text());
+    pagsP = parseInt($('#'+id_fila).find('td').eq(5).text());
+    pagsM = parseInt($('#'+id_fila).find('td').eq(6).text());
+
+    actualizarEstadisticos(0,pags,-pagsP,-pagsM);
 
     $('#tabProcesBody #'+id_fila).remove();
     $('#tabProcesElim').prop('disabled',true);
