@@ -3,6 +3,7 @@ var memoria = null; //variable para Objeto Memoria
 var procesos = [];  //lista de procesos
 var contadorProceso = 0; //contador de procesos
 var textArea = document.createElement('textarea');
+var filasSec = $('#tabMemSec tr').length;
   textArea.cols = 50;
   textArea.rows = 50; 
 
@@ -345,12 +346,12 @@ function suspender(id_fila){
 		});		
 	};
    }
-   $('#tabMemSec tbody tr').eq(car).each(function(){	
+   $('#tabMemSec tbody tr').eq(filasSec).each(function(){	
 			$(this).find('td').eq(1).text(idPro2);
 			$(this).find('td').eq(2).text(nomPro);
 			$(this).find('td').eq(3).text(tamPro);
 		});
-    car++;
+    filasSec++;
 }
 
 function agregarProcesoListo(idPro, nomPro, tamPro){
