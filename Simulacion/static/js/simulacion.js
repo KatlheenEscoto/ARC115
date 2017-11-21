@@ -497,7 +497,7 @@ function fifo(cantMemPDis,cantMemSDis,tamPag,paginas,nombrePro,idPro){
 	var paginaCargada=0;
 	var cargadaCambMS=0;
 
-for (var k = 0; k <= paginas; k++) {
+for (var k = 0; k <= paginas; k++){
 	paginaCargada=0;
 	cargadaCambMS=0;
 	menorid = 3000;
@@ -536,6 +536,7 @@ for (var k = 0; k <= paginas; k++) {
 				$(this).find('td').eq(2).text(nombrePro);
 				$(this).find('td').eq(3).text(k);
 				actualizarEstadisticos(1,0,1);
+
 				cargadasMS++;
 				paginaCargada=1;
 				}	
@@ -565,6 +566,7 @@ for (var k = 0; k <= paginas; k++) {
 							$(this).find('td').eq(2).text(nombCamb);
 							$(this).find('td').eq(3).text(numPagCamb);
 							actualizarEstadisticos(1,0,1);
+							actualizarProcesoFIFO(idCamb);
 							cargadaCambMS=1;
 						}	
 					});
@@ -621,10 +623,14 @@ function actualizarProcesoFIFO(idPro){
 			});
 
 			if (hayPagsMP) {
-				var fila='<tr class="selected" id="fila'+contP+'" onclick="seleccionarPro(this.id);"><td>'+contP+'</td><td>'+nombre+'</td><td>'+tamProc+'</td><td>'+paginas+'</td><td>'+estado+'</td><td>'+cargadasMP+'</td><td>'+cargadasMS+'</td></tr>';
-				$('#tabProces').append(fila);				
-			};
+				$(this).find('td').eq(5).text(pagMP-1);
+				$(this).find('td').eq(6).text(pagMS+1);							
+			}else {
+				$(this).find('td').eq(4).text("Espera");
+				$(this).find('td').eq(5).text(pagMP-1);
+				$(this).find('td').eq(6).text(pagMS+1);				
+			}
 
-		};
+		}
 	});
 }
