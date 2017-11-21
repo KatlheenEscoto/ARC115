@@ -601,12 +601,29 @@ function actualizarProcesoFIFO(idPro){
 	var idActual=0;
 	var pagMP=0;
 	var pagMS=0;
+	var hayPagsMP=false;
+	var band = 0;
 	var estado="Espera";
+
 	$('#tabProcesBody tr').each(function() {
 		idActual=parseInt($(this).find('td').eq(0).text());
 		if (idPro==idActual) {
 			pagMP=parseInt($(this).find('td').eq(5).text());
 			pagMS=parseInt($(this).find('td').eq(6).text());
+
+			$('#tabMemPri tbody tr').each(function() {
+				band=parseInt($(this).find('td').eq(2).text());
+			    if( band == idPro){
+			    	hayPagsMP =true;
+		
+			    }
+			});
+
+			if (hayPagsMP) {
+				var fila='<tr class="selected" id="fila'+contP+'" onclick="seleccionarPro(this.id);"><td>'+contP+'</td><td>'+nombre+'</td><td>'+tamProc+'</td><td>'+paginas+'</td><td>'+estado+'</td><td>'+cargadasMP+'</td><td>'+cargadasMS+'</td></tr>';
+				$('#tabProces').append(fila);				
+			};
+
 		};
 	});
 }
