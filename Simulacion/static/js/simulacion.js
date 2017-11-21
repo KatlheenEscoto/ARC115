@@ -575,6 +575,7 @@ for (var k = 0; k <= paginas; k++) {
 		}
 	}
 	} 
+	filasSec++;
 	return cargadasMS;	
 
 }
