@@ -584,7 +584,7 @@ function vaciosMP(){
 	var entra =0;
 	$('#tabMemPri tbody tr').each(function() {
 		band=$(this).find('td').eq(2).text();
-		alert(" entra a la funcion pre"+band+"ba"+(band == '' || band ===' '));
+
 		
 	    if( band == '' || band ===' '){
 
@@ -594,4 +594,18 @@ function vaciosMP(){
 	});
 
 	return (entra==1);
+}
+
+function actualizarProcesoFIFO(idPro){
+	var idActual=0;
+	var pagMP=0;
+	var pagMS=0;
+	var estado="Espera";
+	$('#tabProcesBody tr').each(function() {
+		idActual=parseInt($(this).find('td').eq(0).text());
+		if (idPro==idActual) {
+			pagMP=parseInt($(this).find('td').eq(5).text());
+			pagMS=parseInt($(this).find('td').eq(6).text());
+		};
+	});
 }
