@@ -400,7 +400,7 @@ function suspender(id_fila){
         pagsM = parseInt($('#'+id_fila).find('td').eq(6).text());
         $('#'+id_fila).find('td').eq(5).text(pagsM);
         $('#'+id_fila).find('td').eq(6).text(pagsP);
-        actualizarEstadisticos(0,pags,-pagsP,-pagsM);
+        actualizarEstadisticos(pags,-pagsM,-pagsP);  // <---- Que le pongo a esta vaina :
         $('#tabProcesElim').prop('disabled',true);
         $('#tabProcesListo').prop('disabled',true);
         $('#tabProcesSus').prop('disabled',true);
@@ -535,7 +535,7 @@ function fifo(cantMemPDis,cantMemSDis,tamPag,paginas,nombrePro,idPro){
 	var paginaCargada=0;
 	var cargadaCambMS=0;
 
-for (var k = 0; k <= paginas; k++){
+for (var k = 0; k <= paginas; k++) {
 	paginaCargada=0;
 	cargadaCambMS=0;
 	menorid = 3000;
@@ -574,7 +574,6 @@ for (var k = 0; k <= paginas; k++){
 				$(this).find('td').eq(2).text(nombrePro);
 				$(this).find('td').eq(3).text(k);
 				actualizarEstadisticos(1,0,1);
-
 				cargadasMS++;
 				paginaCargada=1;
 				}	
@@ -604,7 +603,6 @@ for (var k = 0; k <= paginas; k++){
 							$(this).find('td').eq(2).text(nombCamb);
 							$(this).find('td').eq(3).text(numPagCamb);
 							actualizarEstadisticos(1,0,1);
-							actualizarProcesoFIFO(idCamb);
 							cargadaCambMS=1;
 						}	
 					});
@@ -642,33 +640,12 @@ function actualizarProcesoFIFO(idPro){
 	var idActual=0;
 	var pagMP=0;
 	var pagMS=0;
-	var hayPagsMP=false;
-	var band = 0;
 	var estado="Espera";
-
 	$('#tabProcesBody tr').each(function() {
 		idActual=parseInt($(this).find('td').eq(0).text());
 		if (idPro==idActual) {
 			pagMP=parseInt($(this).find('td').eq(5).text());
 			pagMS=parseInt($(this).find('td').eq(6).text());
-
-			$('#tabMemPri tbody tr').each(function() {
-				band=parseInt($(this).find('td').eq(2).text());
-			    if( band == idPro){
-			    	hayPagsMP =true;
-		
-			    }
-			});
-
-			if (hayPagsMP) {
-				$(this).find('td').eq(5).text(pagMP-1);
-				$(this).find('td').eq(6).text(pagMS+1);							
-			}else {
-				$(this).find('td').eq(4).text("Espera");
-				$(this).find('td').eq(5).text(pagMP-1);
-				$(this).find('td').eq(6).text(pagMS+1);				
-			}
-
-		}
+		};
 	});
 }
