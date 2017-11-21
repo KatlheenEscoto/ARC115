@@ -2,9 +2,6 @@
 var memoria = null; //variable para Objeto Memoria
 var procesos = [];  //lista de procesos
 var contadorProceso = 0; //contador de procesos
-var textArea = document.createElement('textarea');
-  textArea.cols = 50;
-  textArea.rows = 50; 
 
 /* Otros */
 var contPP=0; //Principal.
@@ -116,7 +113,9 @@ function agregarProcesoMemP(numPag,nomPro,idPro){
 					cargadas++;
 				}
 		});
-	return cargadas;
+
+		actualizarEstadisticos(numPag,cargadas,0);
+	return cargadas; //Retorna paginas cargadas en MP
 }
 
 function agregarProcesoMemS(corPag,nomPro,idPro,numPag){
@@ -132,7 +131,7 @@ function agregarProcesoMemS(corPag,nomPro,idPro,numPag){
 				}
 		});
 		filasSec++;
-	return (numPag-corPag);
+	return (numPag-corPag); //Desbordamiento
 }
 
 
@@ -157,7 +156,7 @@ function crearProceso(){
 			$('#tabProcesListo').prop('disabled', true);
 			$('#tabProcesSus').prop('disabled', true);
 			$('#termSimBtn').prop('disabled', false);
-			agregarProceso();		
+			agregarProceso1();		
 			
 		}
 	}
@@ -175,13 +174,13 @@ function agregarProceso(){
 	var incapAlmacenaje=0;
 	if (cargadasMS>0){
 		if (cargadasMP==0) {
-			incapAlmacenaje = agregarProcesoMemS(cargadasMP,nombre,contP,paginas);
+			incapAlmacenaje = agregarProcesoMemS(cargadasMP,nombre,contP,paginas);//Fifo
 			if (incapAlmacenaje>0) {
 				alert("El proceso tiene demasiado tamaño para ser cargado.");
 
 			}else {
 			    //Actulizar estadisticos
-			    actualizarEstadisticos(parseInt(tamProc),paginas,cargadasMP,cargadasMS);				
+			    actualizarEstadisticos(paginas,cargadasMP,cargadasMS);				
 			}
 		}else {
 			incapAlmacenaje = agregarProcesoMemS((cargadasMP),nombre,contP,paginas);
@@ -189,7 +188,7 @@ function agregarProceso(){
 				alert("El proceso tiene demasiado tamaño para ser cargado.");
 			}else {
 			    //Actulizar estadisticos
-			    actualizarEstadisticos(parseInt(tamProc),paginas,cargadasMP,cargadasMS);				
+			    actualizarEstadisticos(paginas,cargadasMP,cargadasMS);				
 			}		
 		}
 
@@ -219,8 +218,44 @@ function agregarProceso(){
 	$('#nomProCrear').val('Proceso '+ n);
 }
 
+function agregarProceso1(){
+	contP++;	
+	var nombre = $('#nomProCrear').val();
+	var tamProc = parseInt($('#tamProCrear').val());
+	var paginas = cantidadPaginas(tamProc);
+	var cantMemPDis=parseInt($('#estMemDis').text());
+	var cantMemSDis =parseInt( $('#estMemSecDis').text());
+	var tamPag = parseInt($('#estTamPag').text());
 
-function actualizarEstadisticos(tamProc,pagProc,cargadasMP,cargadasMS){
+	if (tamProc<=cantMemPDis) {
+		//Cargar en MP
+		var	cargadasMP = agregarProcesoMemP(paginas,nombre,contP);
+		var fila='<tr class="selected" id="fila'+contP+'" onclick="seleccionarPro(this.id);"><td>'+contP+'</td><td>'+nombre+'</td><td>'+tamProc+'</td><td>'+paginas+'</td><td>'+'Activa'+'</td><td>'+cargadasMP+'</td><td>'+(paginas-cargadasMP)+'</td></tr>';
+		$('#tabProces').append(fila);
+		if (cargadasMP==paginas) {
+			alert("El proceso "+nombre+" fue cargado a MP.");	
+		}else {
+			alert("Error.! El proceso "+nombre+"no fue cargado a MP.");
+		}
+		
+	}else {
+		if (tamProc<=(cantMemPDis+cantMemSDis)) {
+			cargadasMS = fifo(cantMemPDis,cantMemSDis,tamPag,paginas,nombre,contP);
+			var fila='<tr class="selected" id="fila'+contP+'" onclick="seleccionarPro(this.id);"><td>'+contP+'</td><td>'+nombre+'</td><td>'+tamProc+'</td><td>'+paginas+'</td><td>'+'Activa'+'</td><td>'+(paginas-cargadasMS)+'</td><td>'+cargadasMS+'</td></tr>';
+			$('#tabProces').append(fila);
+			alert('Algoritmo de reemplazamiento FIFO.');
+		}else {
+			alert(" EL Proceso"+nombre+"supera toda la capcidad de almacenamiento disponible.");
+		}
+	}
+
+	reordenarProceso();
+	n++;
+	$('#nomProCrear').val('Proceso '+ n);
+
+}
+
+function actualizarEstadisticos(pagProc,cargadasMP,cargadasMS){
     var capMemP =parseInt($('#estCantMem').text());
     var cantMemPDis=parseInt($('#estMemDis').text());
     var cantMemPUsa=parseInt($('#estMemUsa').text());
@@ -447,49 +482,116 @@ $(document).ready(function() {
 
 });
 
-function fifo(numPag){
-	var menorid = 300;
+function fifo(cantMemPDis,cantMemSDis,tamPag,paginas,nombrePro,idPro){
+	var menorid = 3000;
 	var marMP = parseInt($('#estMarPag').text());
-	var idPro = 0;
+	var idCamb=0;
+	var idActual=0;
+	var numPagCamb=0;
+	var nomCamb='';
 	var pro = 0;
-//Extraer el menor id, es el primero en entrar
-	for (var i = 0 ; i <= marMP; i++) {
+	var texto='';
+	var idMP=0;
+	var cargadasMS=0;
+	var paginaCargada=0;
+	var cargadaCambMS=0;
+
+for (var k = 0; k <= paginas; k++) {
+	paginaCargada=0;
+	cargadaCambMS=0;
+	menorid = 3000;
+	
+
+	if (vaciosMP()) {
+	$('#tabMemPri tbody tr').each(function() {
+	texto=$(this).find('td').eq(2).text();
+	    if((texto === '' && k<paginas && paginaCargada<1) || (texto===' ' && k<paginas && paginaCargada<1)){
+	    	$(this).find('td').eq(2).text(idPro);
+			$(this).find('td').eq(3).text(nombrePro);
+			$(this).find('td').eq(4).text(k);
+			actualizarEstadisticos(1,1,0);
+			
+			paginaCargada=1;
+	    }
+	});	
+	}else {	
+	//Extraer el menor id, es el primero en entrar
+		for (var i = 0 ; i <= marMP; i++) {
 
 		$('#tabMemPri tbody tr').each(function(){
-			idPro=parseInt($(this).find('td').eq(2).text());
-			if(idPro<menorid){
-				menorid=idPro;
+			idActual=parseInt($(this).find('td').eq(2).text());
+			if(idActual<menorid){
+				menorid=idActual;
 			}
 		});
-	};
-//Traer Proceso de Lista de Procesos
-	$('#tabProcesBody tr').each(function(){
-		pro = parseInt($(this).find('td').eq(0).text());
+		};
+
+		if (menorid===idPro) {
+			//Mandar a MS
+			$('#tabMemSec tbody tr').each(function(){
+			texto=$(this).find('td').eq(1).text();
+			if((texto === '' && k<paginas && paginaCargada<1) || (texto===' ' && k<paginas && paginaCargada<1)){
+				$(this).find('td').eq(1).text(idPro);
+				$(this).find('td').eq(2).text(nombrePro);
+				$(this).find('td').eq(3).text(k);
+				actualizarEstadisticos(1,0,1);
+				cargadasMS++;
+				paginaCargada=1;
+				}	
+			});		
+		}else {
+			
+		
+    	//actualizarEstadisticos(0,pags,-pagsP,-pagsM);
+		//Hacer el cambio del menor a MP
+		
+			$('#tabMemPri tbody tr').each(function(){
+				idMP=parseInt($(this).find('td').eq(2).text());
+				if(idMP === menorid && (k<paginas) && paginaCargada<1){
+					idCamb=parseInt($(this).find('td').eq(2).text());
+					nombCamb=$(this).find('td').eq(3).text();
+					numPagCamb=parseInt($(this).find('td').eq(4).text());
+		
+					$(this).find('td').eq(2).text(idPro);
+					$(this).find('td').eq(3).text(nombrePro);
+					$(this).find('td').eq(4).text(k);
+		
+					//Mandar a MS
+					$('#tabMemSec tbody tr').each(function(){
+						texto=$(this).find('td').eq(1).text();
+						if((texto === '' && cargadaCambMS<1 )|| (texto===' ' && cargadaCambMS<1)){
+							$(this).find('td').eq(1).text(idCamb);
+							$(this).find('td').eq(2).text(nombCamb);
+							$(this).find('td').eq(3).text(numPagCamb);
+							actualizarEstadisticos(1,0,1);
+							cargadaCambMS=1;
+						}	
+					});
+
+					
+					paginaCargada=1;			
+				}
+			});
+		}
+	}
+	} 
+	return cargadasMS;	
+
+}
+
+function vaciosMP(){
+	var band='';
+	var entra =0;
+	$('#tabMemPri tbody tr').each(function() {
+		band=$(this).find('td').eq(2).text();
+		alert(" entra a la funcion pre"+band+"ba"+(band == '' || band ===' '));
+		
+	    if( band == '' || band ===' '){
+
+	    	entra =1;
+
+	    }
 	});
 
-    //actualizarEstadisticos(0,pags,-pagsP,-pagsM);
-//Hacer el cambio
-	var texto='';
-
-	for (var i = 0 ; i <= pags; i++) {
-
-		$('#tabMemPri tbody tr').each(function(){
-			texto=$(this).find('td').eq(2).text();
-			if(texto === idPro1){
-				$(this).find('td').eq(2).text(' ');
-				$(this).find('td').eq(3).text(' ');
-				$(this).find('td').eq(4).text(' ');
-			}
-		});
-
-		$('#tabMemSec tbody tr').each(function(){
-			texto=$(this).find('td').eq(1).text();
-			if(texto === idPro1){
-				$(this).find('td').eq(1).text(' ');
-				$(this).find('td').eq(2).text(' ');
-				$(this).find('td').eq(3).text(' ');
-			}
-		});
-	};	
-
+	return (entra==1);
 }
