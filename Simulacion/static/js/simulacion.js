@@ -383,7 +383,7 @@ function suspender(id_fila){
    $('#tabMemSec tbody tr').eq(filasSec).each(function(){	
 			$(this).find('td').eq(1).text(idPro2);
 			$(this).find('td').eq(2).text(nomPro);
-			$(this).find('td').eq(3).text(tamPro);
+			$(this).find('td').eq(3).text(pagsP);
 		});
     filasSec++;
 }
