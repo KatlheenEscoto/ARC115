@@ -346,6 +346,42 @@ function listo(id_fila){
 
 }
 
+function agregarProcesoListo(idPro, nomPro, tamPro){
+	contP++;	
+	var nombre = nomPro;
+	var tamProc = tamPro;
+	var paginas = cantidadPaginas(tamProc);
+	var cantMemPDis=parseInt($('#estMemDis').text());
+	var cantMemSDis =parseInt( $('#estMemSecDis').text());
+	var tamPag = parseInt($('#estTamPag').text());
+
+	if (tamProc<=cantMemPDis) {
+		//Cargar en MP
+		var	cargadasMP = agregarProcesoMemP(paginas,nombre,contP);
+		var fila='<tr class="selected" id="fila'+contP+'" onclick="seleccionarPro(this.id);"><td>'+idPro+'</td><td>'+nombre+'</td><td>'+tamProc+'</td><td>'+paginas+'</td><td>'+'Activa'+'</td><td>'+cargadasMP+'</td><td>'+(paginas-cargadasMP)+'</td></tr>';
+		$('#tabProces').append(fila);
+		if (cargadasMP==paginas) {
+			alert("El proceso "+nombre+" fue cargado a MP."+idPro);	
+		}else {
+			alert("Error.! El proceso "+nombre+"no fue cargado a MP.");
+		}
+		
+	}else {
+		if (tamProc<=(cantMemPDis+cantMemSDis)) {
+			cargadasMS = fifo(cantMemPDis,cantMemSDis,tamPag,paginas,nombre,contP);
+			var fila='<tr class="selected" id="fila'+contP+'" onclick="seleccionarPro(this.id);"><td>'+idPro+'</td><td>'+nombre+'</td><td>'+tamProc+'</td><td>'+paginas+'</td><td>'+'Activa'+'</td><td>'+(paginas-cargadasMS)+'</td><td>'+cargadasMS+'</td></tr>';
+			$('#tabProces').append(fila);
+			alert('Algoritmo de reemplazamiento FIFO.');
+		}else {
+			alert(" EL Proceso"+nombre+"supera toda la capcidad de almacenamiento disponible.");
+		}
+	}
+
+	reordenarProceso();
+	//n++;
+	//$('#nomProCrear').val('Proceso '+ n);
+}
+
 function suspender(id_fila){
 	var car=0;
 	idPro2 = $('#'+id_fila).find('td').eq(0).text();
@@ -389,8 +425,10 @@ function suspender(id_fila){
     filasSec++;
 }
 
+/*
 function agregarProcesoListo(idPro, nomPro, tamPro){
-	contP++;	
+	contP++;
+	var id = idPro;	
 	var nombre = nomPro;
 	var tamProc = tamPro;
 	var paginas = cantidadPaginas(tamProc);
@@ -422,22 +460,22 @@ function agregarProcesoListo(idPro, nomPro, tamPro){
 	if(cargadasMP==0){
 		if(incapAlmacenaje>0){	
 		estado="Desbordamiento";
-		var fila='<tr class="selected" id="fila'+contP+'" onclick="seleccionarPro(this.id);"><td>'+idPro+'</td><td>'+nombre+'</td><td>'+tamProc+'</td><td>'+paginas+'</td><td>'+estado+'</td><td>'+estado+'</td><td>'+estado+'</td></tr>';
+		var fila='<tr class="selected" id="fila'+contP+'" onclick="seleccionarPro(this.id);"><td>'+id+'</td><td>'+nombre+'</td><td>'+tamProc+'</td><td>'+paginas+'</td><td>'+estado+'</td><td>'+estado+'</td><td>'+estado+'</td></tr>';
 		$('#tabProces').append(fila);					
 		}else {
 			estado="Espera";
-			var fila='<tr class="selected" id="fila'+contP+'" onclick="seleccionarPro(this.id);"><td>'+contP+'</td><td>'+nombre+'</td><td>'+tamProc+'</td><td>'+paginas+'</td><td>'+estado+'</td><td>'+cargadasMP+'</td><td>'+cargadasMS+'</td></tr>';
+			var fila='<tr class="selected" id="fila'+contP+'" onclick="seleccionarPro(this.id);"><td>'+id+'</td><td>'+nombre+'</td><td>'+tamProc+'</td><td>'+paginas+'</td><td>'+estado+'</td><td>'+cargadasMP+'</td><td>'+cargadasMS+'</td></tr>';
 			$('#tabProces').append(fila);
 		}
 
 	}else{
 		estado="Activa";
 
-		var fila='<tr class="selected" id="fila'+contP+'" onclick="seleccionarPro(this.id);"><td>'+contP+'</td><td>'+nombre+'</td><td>'+tamProc+'</td><td>'+paginas+'</td><td>'+estado+'</td><td>'+cargadasMP+'</td><td>'+cargadasMS+'</td></tr>';
+		var fila='<tr class="selected" id="fila'+contP+'" onclick="seleccionarPro(this.id);"><td>'+id+'</td><td>'+nombre+'</td><td>'+tamProc+'</td><td>'+paginas+'</td><td>'+estado+'</td><td>'+cargadasMP+'</td><td>'+cargadasMS+'</td></tr>';
 		$('#tabProces').append(fila);
 	}
 	reordenarProceso();
-}
+}*/
 
 function reordenarProceso(){
 	var num=1;
