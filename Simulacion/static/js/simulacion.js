@@ -357,12 +357,13 @@ function suspender(id_fila){
 	activo = activo1.toLowerCase();
 	if(activo === 'activa')
 	{
-		activo1 = $('#'+id_fila).find('td').eq(4).text('espera');
+		activo1 = $('#'+id_fila).find('td').eq(4).text('Espera');		
 		idPro1 = $('#'+id_fila).find('td').eq(0).text();
         pags = parseInt($('#'+id_fila).find('td').eq(0).text());
         pagsP = parseInt($('#'+id_fila).find('td').eq(5).text());
         pagsM = parseInt($('#'+id_fila).find('td').eq(6).text());
-
+        $('#'+id_fila).find('td').eq(5).text(pagsM);
+        $('#'+id_fila).find('td').eq(6).text(pagsP);
         actualizarEstadisticos(0,pags,-pagsP,-pagsM);
         $('#tabProcesElim').prop('disabled',true);
         $('#tabProcesListo').prop('disabled',true);
